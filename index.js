@@ -1,4 +1,4 @@
-let myLeads = ["www.awesomelead.com", "www.epiclead.com", "www.greatlead.com"];
+let myLeads = [];
 
 let listItems = "";
 
@@ -11,6 +11,7 @@ const ulEl = document.getElementById("ul-el");
 inputBtn.addEventListener("click", function () {
   const inputValue = inputEl.value;
   myLeads.push(inputValue);
+  inputEl.value = "";
   renderLeads();
 });
 
