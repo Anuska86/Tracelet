@@ -7,6 +7,7 @@ body {
   color: #3fa7a7;
 }
 
+/*Inputs*/
 input {
   width: 100%;
   padding: 10px;
@@ -15,6 +16,28 @@ input {
   background-color: #1f4d4d;
   color: #f4c542;
   margin-bottom: 5px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #1f4d4d;
+  color: #f4c542;
+  border: 1px solid #3fa7a7;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/*Text*/
+h3 {
+  margin-top: 30px;
+  font-size: 1.2em;
+  color: #f4c542;
+  border-bottom: 1px solid #3fa7a7;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /*Buttons*/
@@ -47,4 +70,45 @@ li {
 a {
   color: #f4c542;
   text-decoration: none;
+}
+
+/*Others*/
+
+.timestamp {
+  font-size: 0.8em;
+  color: #888;
+  margin-left: 10px;
+}
+
+/*Save*/
+
+.saved {
+  animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0px #f4c542;
+  }
+  50% {
+    box-shadow: 0 0 10px #f4c542;
+  }
+  100% {
+    box-shadow: 0 0 0px #f4c542;
+  }
+}
+
+/*Phones*/
+
+@media (max-width: 500px) {
+  button,
+  input,
+  select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  body {
+    padding: 15px;
+  }
 }
