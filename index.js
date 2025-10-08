@@ -13,9 +13,18 @@ myLeads = [
   },
 ];
 
+let categories = ["Profiles", "Videos", "Articles", "Books"];
+
+const savedCategories = JSON.parse(localStorage.getItem("categories"));
+if (savedCategories) categories = savedCategories;
+
 const inputEl = document.getElementById("input-el");
 
 const ulEl = document.getElementById("ul-el");
+
+const categoryEl = document.getElementById("category-el");
+
+const newCategoryEl = document.getElementById("new-category-el");
 
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 
@@ -24,6 +33,8 @@ const clearBtn = document.getElementById("clear-btn");
 const inputBtn = document.getElementById("input-btn");
 
 const tabBtn = document.getElementById("tab-btn");
+
+const addCategoryBtn = document.getElementById("add-category-btn");
 
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
@@ -87,4 +98,36 @@ tabBtn.addEventListener("click", function () {
       render(myLeads);
     }
   });
+});
+
+//Categories
+function guessCategory(url) {
+  if (url.includes("youtube.com")) return "Videos";
+  if (url.includes("linkedin.com")) return "Profiles";
+  if (url.includes("medium.com") || url.includes("blog")) return "Articles";
+  return "Uncategorized";
+}
+
+function renderCategoryOptions() {
+  categoryEl.innerHTML = "";
+  categories.forEach((cat) => {
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    categoryEl.appendChild(option);
+  });
+}
+
+addCategoryBtn.addEventListener("click", function () {
+  const newCat = newCategoryEl.value.trim();
+  if (newCat && !categories.includes(newCat)) {
+    categories.push(newCat);
+    localStorage.setItem("categories", JSON.stringify(categories));
+    renderCategoryOptions();
+    newCategoryEl.value = "";
+    categoryEl.value = newCat;
+
+    addCategoryBtn.classList.add("saved");
+    setTimeout(() => addCategoryBtn.classList.remove("saved"), 300);
+  }
 });

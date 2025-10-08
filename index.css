@@ -98,6 +98,18 @@ a {
   }
 }
 
+/*Categories*/
+
+#new-category-el {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #1f4d4d;
+  color: #f4c542;
+  border: 1px solid #3fa7a7;
+  border-radius: 4px;
+}
+
 /*Phones*/
 
 @media (max-width: 500px) {
