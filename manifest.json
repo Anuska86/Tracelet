@@ -4,6 +4,9 @@
   "name": "Tracelet",
   "action": {
     "default_popup": "index.html",
-    "default_icon": "bookmark-iconT.png"
+    "default_icon": "bookmark-icon.png"
+  },
+  "icons": {
+    "128": "bookmark-icon.png"
   }
 }
