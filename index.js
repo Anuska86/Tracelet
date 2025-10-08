@@ -12,8 +12,6 @@ const inputBtn = document.getElementById("input-btn");
 
 const tabBtn = document.getElementById("tab-btn");
 
-const tabs = [{ url: "https://www.linkedin.com/in/per-harald-borgen/" }];
-
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
   render(myLeads);
@@ -28,6 +26,7 @@ function render(leads) {
   return (ulEl.innerHTML = listItems);
 }
 
+//Save Input
 inputBtn.addEventListener("click", function () {
   const inputValue = inputEl.value;
   myLeads.push(inputValue);
@@ -36,17 +35,21 @@ inputBtn.addEventListener("click", function () {
   render(myLeads);
 });
 
+//Clear input
 clearBtn.addEventListener("click", function () {
   localStorage.clear();
   myLeads = [];
   render(myLeads);
 });
 
+//Save tabs
 tabBtn.addEventListener("click", function () {
-  const url = tabs[0].url;
-  if (!myLeads.includes(url)) {
-    myLeads.push(url);
-    localStorage.setItem("myLeads", JSON.stringify(myLeads));
-    render(myLeads);
-  }
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    const url = tabs[0].url;
+    if (!myLeads.includes(url)) {
+      myLeads.push(url);
+      localStorage.setItem("myLeads", JSON.stringify(myLeads));
+      render(myLeads);
+    }
+  });
 });
