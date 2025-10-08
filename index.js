@@ -43,6 +43,7 @@ if (leadsFromLocalStorage) {
 
 function render(leads) {
   const grouped = leads.reduce((acc, lead) => {
+    if (!lead.category) return acc;
     acc[lead.category] = acc[lead.category] || [];
     acc[lead.category].push(lead);
     return acc;
