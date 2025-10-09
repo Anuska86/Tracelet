@@ -21,6 +21,8 @@ const deleteCategoryBtn = document.getElementById("delete-category-btn");
 
 const viewAllBtn = document.getElementById("view-all-btn");
 
+console.log("chrome.tabs:", chrome.tabs);
+
 // Initial render
 renderCategoryOptions(categories, categoryEl);
 

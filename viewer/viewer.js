@@ -1,12 +1,17 @@
-const container = document.getElementById("viewer-container");
-const leads = JSON.parse(localStorage.getItem("myLeads")) || [];
-const allLeads = getLeads();
-renderLeads(allLeads, document.getElementById("viewer-container"));
+import { getLeads } from "../scripts/storage";
+import { renderLeads } from "../scripts/render";
 
-if (leads.length === 0) {
+const container = document.getElementById("viewer-container");
+const allLeads = getLeads();
+console.log("Leads:", getLeads());
+
+renderLeads(allLeads, container);
+
+/*
+if (allLeads.length === 0) {
   container.innerHTML = "<p>No tabs saved yet.</p>";
 } else {
-  const grouped = leads.reduce((acc, lead) => {
+  const grouped = allLeads.reduce((acc, lead) => {
     acc[lead.category] = acc[lead.category] || [];
     acc[lead.category].push(lead);
     return acc;
@@ -30,3 +35,4 @@ if (leads.length === 0) {
     container.appendChild(section);
   }
 }
+*/
