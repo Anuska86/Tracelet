@@ -37,6 +37,13 @@ const addCategoryBtn = document.getElementById("add-category-btn");
 
 const deleteCategoryBtn = document.getElementById("delete-category-btn");
 
+categoryEl.addEventListener("change", function () {
+  const isNew = categoryEl.value === "__new__";
+  newCategoryEl.style.display = isNew ? "inline-block" : "none";
+  addCategoryBtn.style.display = isNew ? "inline-block" : "none";
+  deleteCategoryBtn.disabled = isNew;
+});
+
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
   render(myLeads);
@@ -146,24 +153,30 @@ categoryEl.addEventListener("change", function () {
 deleteCategoryBtn.addEventListener("click", function () {
   const selectedCat = categoryEl.value;
 
+  if (selectedCat === "__new__") {
+    alert("Please select a valid category to delete.");
+    return;
+  }
+
   if (categories.includes(selectedCat)) {
     const confirmed = confirm(
       `Are you sure you want to delete the "${selectedCat}" section and all its saved items?`
     );
     if (confirmed) {
-      // Remove category from list
       categories = categories.filter((cat) => cat !== selectedCat);
-
-      // Remove leads in that category
       myLeads = myLeads.filter((lead) => lead.category !== selectedCat);
 
-      // Update localStorage
       localStorage.setItem("categories", JSON.stringify(categories));
       localStorage.setItem("myLeads", JSON.stringify(myLeads));
 
-      // Re-render UI
       renderCategoryOptions();
       render(myLeads);
+
+      categoryEl.value = categories[0] || "__new__"; // fallback
+      newCategoryEl.style.display =
+        categoryEl.value === "__new__" ? "inline-block" : "none";
+      addCategoryBtn.style.display =
+        categoryEl.value === "__new__" ? "inline-block" : "none";
 
       deleteCategoryBtn.classList.add("saved");
       setTimeout(() => deleteCategoryBtn.classList.remove("saved"), 300);
