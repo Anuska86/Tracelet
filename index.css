@@ -92,6 +92,11 @@ a {
   margin-left: 10px;
 }
 
+.description {
+  font-style: italic;
+  color: #555;
+}
+
 /*Save*/
 
 .saved {

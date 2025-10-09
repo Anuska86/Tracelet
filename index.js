@@ -37,13 +37,6 @@ const addCategoryBtn = document.getElementById("add-category-btn");
 
 const deleteCategoryBtn = document.getElementById("delete-category-btn");
 
-categoryEl.addEventListener("change", function () {
-  const isNew = categoryEl.value === "__new__";
-  newCategoryEl.style.display = isNew ? "inline-block" : "none";
-  addCategoryBtn.style.display = isNew ? "inline-block" : "none";
-  deleteCategoryBtn.disabled = isNew;
-});
-
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
   render(myLeads);
