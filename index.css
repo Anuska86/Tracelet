@@ -84,6 +84,13 @@ a {
   text-decoration: none;
 }
 
+/*Category*/
+
+#category-el option[value="__delete__"] {
+  color: red;
+  font-weight: bold;
+}
+
 /*Others*/
 
 .timestamp {

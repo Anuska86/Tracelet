@@ -16,7 +16,6 @@ const newCategoryEl = document.getElementById("new-category-el");
 const clearBtn = document.getElementById("clear-btn");
 const tabBtn = document.getElementById("tab-btn");
 const addCategoryBtn = document.getElementById("add-category-btn");
-const deleteCategoryBtn = document.getElementById("delete-category-btn");
 const viewAllBtn = document.getElementById("view-all-btn");
 
 // Initial render
@@ -89,17 +88,27 @@ categoryEl.addEventListener("change", () => {
 });
 
 // Delete selected category and its leads
-deleteCategoryBtn.addEventListener("click", () => {
-  const selectedCat = categoryEl.value;
+categoryEl.addEventListener("change", () => {
+  const value = categoryEl.value;
 
-  if (selectedCat === "__new__") {
-    alert("Please select a valid category to delete.");
-    return;
+  if (value === "__new__") {
+    newCategoryEl.style.display = "inline-block";
+    addCategoryBtn.style.display = "inline-block";
+  } else {
+    newCategoryEl.style.display = "none";
+    addCategoryBtn.style.display = "none";
   }
 
-  if (categories.includes(selectedCat)) {
+  if (value === "__delete__") {
+    const selectedCat = categoryEl.options[categoryEl.selectedIndex - 1]?.value;
+
+    if (!selectedCat || !categories.includes(selectedCat)) {
+      alert("Please select a valid category to delete.");
+      return;
+    }
+
     const confirmed = confirm(
-      `Are you sure you want to delete the "${selectedCat}" section and all its saved items?`
+      `Delete "${selectedCat}" and all its saved items?`
     );
     if (confirmed) {
       categories = categories.filter((cat) => cat !== selectedCat);
@@ -112,13 +121,6 @@ deleteCategoryBtn.addEventListener("click", () => {
       renderLeads(myLeads, ulEl);
 
       categoryEl.value = categories[0] || "__new__";
-      newCategoryEl.style.display =
-        categoryEl.value === "__new__" ? "inline-block" : "none";
-      addCategoryBtn.style.display =
-        categoryEl.value === "__new__" ? "inline-block" : "none";
-
-      deleteCategoryBtn.classList.add("saved");
-      setTimeout(() => deleteCategoryBtn.classList.remove("saved"), 300);
     }
   }
 });
