@@ -4,7 +4,7 @@
   "name": "Tracelet",
   "action": {
     "default_popup": "index.html",
-    "default_icon": "bookmark-icon.png",
+    "default_icon": "assets/bookmark-icon.png",
     "default_title": "Open Tracelet"
   },
   "permissions": ["tabs"],
