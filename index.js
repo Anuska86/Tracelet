@@ -30,8 +30,6 @@ const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 
 const clearBtn = document.getElementById("clear-btn");
 
-const inputBtn = document.getElementById("input-btn");
-
 const tabBtn = document.getElementById("tab-btn");
 
 const addCategoryBtn = document.getElementById("add-category-btn");
@@ -57,6 +55,11 @@ function render(leads) {
       ulEl.innerHTML += `
         <li>
           <a target="_blank" href="${lead.url}">${lead.url}</a>
+          ${
+            lead.description
+              ? `<p class="description">${lead.description}</p>`
+              : ""
+          }
           <span class="timestamp">${lead.timestamp}</span>
         </li>`;
     });
@@ -91,13 +94,16 @@ tabBtn.addEventListener("click", function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const url = tabs[0].url;
     const category = categoryEl.value;
+    const description = inputEl.value.trim();
     const timestamp = new Date().toLocaleString();
 
     if (!myLeads.some((lead) => lead.url === url)) {
-      myLeads.push({ url, category, timestamp });
+      myLeads.push({ url, category, description, timestamp });
       localStorage.setItem("myLeads", JSON.stringify(myLeads));
       render(myLeads);
     }
+
+    inputEl.value = "";
   });
 });
 
