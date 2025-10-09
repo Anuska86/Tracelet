@@ -23,6 +23,7 @@ const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
 
 const categoryEl = document.getElementById("category-el");
+renderCategoryOptions();
 
 const newCategoryEl = document.getElementById("new-category-el");
 
@@ -33,6 +34,8 @@ const clearBtn = document.getElementById("clear-btn");
 const tabBtn = document.getElementById("tab-btn");
 
 const addCategoryBtn = document.getElementById("add-category-btn");
+
+const deleteCategoryBtn = document.getElementById("delete-category-btn");
 
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
@@ -66,21 +69,6 @@ function render(leads) {
     ulEl.innerHTML += `</ul>`;
   }
 }
-
-//Save Input
-inputBtn.addEventListener("click", function () {
-  const inputValue = inputEl.value;
-  const category = categoryEl.value;
-  const timestamp = new Date().toLocaleString();
-
-  myLeads.push({ url: inputValue, category, timestamp });
-  inputEl.value = "";
-  localStorage.setItem("myLeads", JSON.stringify(myLeads));
-  render(myLeads);
-
-  inputBtn.classList.add("saved");
-  setTimeout(() => inputBtn.classList.remove("saved"), 300);
-});
 
 //Clear input
 clearBtn.addEventListener("click", function () {
@@ -123,18 +111,62 @@ function renderCategoryOptions() {
     option.textContent = cat;
     categoryEl.appendChild(option);
   });
+
+  const addNewOption = document.createElement("option");
+  addNewOption.value = "__new__";
+  addNewOption.textContent = "➕ Add new category";
+  categoryEl.appendChild(addNewOption);
 }
 
+//Add a new category
 addCategoryBtn.addEventListener("click", function () {
   const newCat = newCategoryEl.value.trim();
   if (newCat && !categories.includes(newCat)) {
     categories.push(newCat);
     localStorage.setItem("categories", JSON.stringify(categories));
     renderCategoryOptions();
+    categoryEl.value = newCat; // auto-select new category
     newCategoryEl.value = "";
-    categoryEl.value = newCat;
+    newCategoryEl.style.display = "none";
+    addCategoryBtn.style.display = "none";
 
     addCategoryBtn.classList.add("saved");
     setTimeout(() => addCategoryBtn.classList.remove("saved"), 300);
+  }
+});
+
+categoryEl.addEventListener("change", function () {
+  const isNew = categoryEl.value === "__new__";
+  newCategoryEl.style.display = isNew ? "inline-block" : "none";
+  addCategoryBtn.style.display = isNew ? "inline-block" : "none";
+});
+
+//Delete category
+
+deleteCategoryBtn.addEventListener("click", function () {
+  const selectedCat = categoryEl.value;
+
+  if (categories.includes(selectedCat)) {
+    const confirmed = confirm(
+      `Are you sure you want to delete the "${selectedCat}" section and all its saved items?`
+    );
+    if (confirmed) {
+      // Remove category from list
+      categories = categories.filter((cat) => cat !== selectedCat);
+
+      // Remove leads in that category
+      myLeads = myLeads.filter((lead) => lead.category !== selectedCat);
+
+      // Update localStorage
+      localStorage.setItem("categories", JSON.stringify(categories));
+      localStorage.setItem("myLeads", JSON.stringify(myLeads));
+
+      // Re-render UI
+      renderCategoryOptions();
+      render(myLeads);
+
+      deleteCategoryBtn.classList.add("saved");
+      setTimeout(() => deleteCategoryBtn.classList.remove("saved"), 300);
+    }
   }
 });

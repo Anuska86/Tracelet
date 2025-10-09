@@ -3,25 +3,23 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <input
-      type="text"
-      id="input-el"
-      placeholder="Add a short description (optional)"
-    />
     <select id="category-el">
       <option value="Profiles">Profiles</option>
       <option value="Videos">Videos</option>
       <option value="Articles">Articles</option>
       <option value="Books">Books</option>
+      <option value="__new__">➕ Add new category</option>
     </select>
+
     <input
       type="text"
       id="new-category-el"
-      placeholder="Create new section..."
+      placeholder="Name your new category"
+      style="display: none"
     />
-    <button id="add-category-btn">Add Section</button>
+    <button id="add-category-btn" style="display: none">Add</button>
+    <button id="delete-category-btn">Delete Category</button>
 
-    <button id="input-btn">Save</button>
     <button id="tab-btn">Save Tab</button>
     <button id="clear-btn">Clear all</button>
 
