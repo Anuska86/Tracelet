@@ -4,18 +4,23 @@
   "name": "Tracelet",
   "action": {
     "default_popup": "index.html",
-    "default_icon": "bookmark-icon.png"
+    "default_icon": "bookmark-icon.png",
+    "default_title": "Open Tracelet"
   },
   "permissions": ["tabs"],
   "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {
-      "resources": ["viewer.html", "viewer.js", "viewer.css"],
+      "resources": [
+        "viewer/viewer.html",
+        "viewer/viewer.js",
+        "styles/viewer.css"
+      ],
       "matches": ["<all_urls>"]
     }
   ],
 
   "icons": {
-    "128": "bookmark-icon.png"
+    "128": "assets/bookmark-icon.png"
   }
 }
