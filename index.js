@@ -22,6 +22,7 @@ const viewAllBtn = document.getElementById("view-all-btn");
 
 // Initial render
 renderCategoryOptions(categories, categoryEl);
+renderLeads(myLeads, ulEl);
 
 // View All Tabs → open viewer.html in new tab
 viewAllBtn.addEventListener("click", () => {
