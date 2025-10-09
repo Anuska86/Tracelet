@@ -13,6 +13,7 @@ const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
 const categoryEl = document.getElementById("category-el");
 const newCategoryEl = document.getElementById("new-category-el");
+
 const clearBtn = document.getElementById("clear-btn");
 const tabBtn = document.getElementById("tab-btn");
 const addCategoryBtn = document.getElementById("add-category-btn");
@@ -22,7 +23,11 @@ const viewAllBtn = document.getElementById("view-all-btn");
 
 // Initial render
 renderCategoryOptions(categories, categoryEl);
-renderLeads(myLeads, ulEl);
+
+//renderLeads(myLeads, ulEl);
+
+const favoriteLeads = myLeads.filter((lead) => lead.isFavorite);
+renderLeads(favoriteLeads, ulEl);
 
 // View All Tabs → open viewer.html in new tab
 viewAllBtn.addEventListener("click", () => {
@@ -43,12 +48,16 @@ tabBtn.addEventListener("click", () => {
     const timestamp = new Date().toLocaleString();
 
     if (!myLeads.some((lead) => lead.url === url)) {
-      myLeads.push({ url, category, description, timestamp });
+      const isFavorite = document.getElementById("favorite-checkbox").checked;
+      myLeads.push({ url, category, description, timestamp, isFavorite });
+
       saveLeads(myLeads);
-      renderLeads(myLeads, ulEl);
+      const favoriteLeads = myLeads.filter((lead) => lead.isFavorite);
+      renderLeads(favoriteLeads, ulEl);
     }
 
     if (inputEl) inputEl.value = "";
+    document.getElementById("favorite-checkbox").checked = false;
 
     tabBtn.classList.add("saved");
     setTimeout(() => tabBtn.classList.remove("saved"), 300);

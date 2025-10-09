@@ -1,5 +1,7 @@
 const container = document.getElementById("viewer-container");
 const leads = JSON.parse(localStorage.getItem("myLeads")) || [];
+const allLeads = getLeads();
+renderLeads(allLeads, document.getElementById("viewer-container"));
 
 if (leads.length === 0) {
   container.innerHTML = "<p>No tabs saved yet.</p>";

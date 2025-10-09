@@ -139,3 +139,26 @@ a {
   border: 1px solid #3fa7a7;
   border-radius: 4px;
 }
+
+/*Favorite*/
+
+.favorite-toggle-container {
+  margin-top: 10px;
+  font-size: 14px;
+}
+#favorite-checkbox {
+  margin-right: 6px;
+}
+
+.favorite-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px;
+  color: #ffcc00;
+  transition: transform 0.2s ease;
+}
+.favorite-toggle:hover {
+  transform: scale(1.2);
+}
