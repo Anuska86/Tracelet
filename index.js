@@ -80,9 +80,14 @@ clearBtn.addEventListener("click", function () {
 //Save tabs
 tabBtn.addEventListener("click", function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    if (!tabs || !tabs[0]) {
+      console.warn("No active tab found");
+      return;
+    }
+
     const url = tabs[0].url;
     const category = categoryEl.value;
-    const description = inputEl.value.trim();
+    const description = inputEl ? inputEl.value.trim() : "";
     const timestamp = new Date().toLocaleString();
 
     if (!myLeads.some((lead) => lead.url === url)) {
@@ -91,8 +96,16 @@ tabBtn.addEventListener("click", function () {
       render(myLeads);
     }
 
-    inputEl.value = "";
+    if (inputEl) inputEl.value = "";
+
+    tabBtn.classList.add("saved");
+    setTimeout(() => tabBtn.classList.remove("saved"), 300);
   });
+
+  console.log("Save Tab clicked");
+  console.log("Tab URL:", tabs[0]?.url);
+  console.log("Category:", category);
+  console.log("Description:", description);
 });
 
 //Categories
