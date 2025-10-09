@@ -1,84 +1,35 @@
-let myLeads = [];
+import { renderLeads, renderCategoryOptions } from "./scripts/render.js";
+import {
+  getLeads,
+  saveLeads,
+  getCategories,
+  saveCategories,
+} from "./scripts/storage.js";
 
-myLeads = [
-  {
-    url: "https://linkedin.com/in/per-harald-borgen",
-    category: "Profiles",
-    timestamp: "2025-10-08 16:56",
-  },
-  {
-    url: "https://youtube.com/watch?v=abc123",
-    category: "Videos",
-    timestamp: "2025-10-08 16:57",
-  },
-];
-
-let categories = ["Profiles", "Videos", "Articles", "Books"];
-
-const savedCategories = JSON.parse(localStorage.getItem("categories"));
-if (savedCategories) categories = savedCategories;
+let myLeads = getLeads();
+let categories = getCategories();
 
 const inputEl = document.getElementById("input-el");
-
 const ulEl = document.getElementById("ul-el");
-
 const categoryEl = document.getElementById("category-el");
-renderCategoryOptions();
-
 const newCategoryEl = document.getElementById("new-category-el");
-
-const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
-
 const clearBtn = document.getElementById("clear-btn");
-
 const tabBtn = document.getElementById("tab-btn");
-
 const addCategoryBtn = document.getElementById("add-category-btn");
-
 const deleteCategoryBtn = document.getElementById("delete-category-btn");
+const viewAllBtn = document.getElementById("view-all-btn");
 
-if (leadsFromLocalStorage) {
-  myLeads = leadsFromLocalStorage;
-  render(myLeads);
-}
+// Initial render
+renderCategoryOptions(categories, categoryEl);
+renderLeads(myLeads, ulEl);
 
-function render(leads) {
-  const grouped = leads.reduce((acc, lead) => {
-    if (!lead.category) return acc;
-    acc[lead.category] = acc[lead.category] || [];
-    acc[lead.category].push(lead);
-    return acc;
-  }, {});
-
-  ulEl.innerHTML = "";
-
-  for (const category in grouped) {
-    ulEl.innerHTML += `<h3>${category}</h3><ul>`;
-    grouped[category].forEach((lead) => {
-      ulEl.innerHTML += `
-        <li>
-          <a target="_blank" href="${lead.url}">${lead.url}</a>
-          ${
-            lead.description
-              ? `<p class="description">${lead.description}</p>`
-              : ""
-          }
-          <span class="timestamp">${lead.timestamp}</span>
-        </li>`;
-    });
-    ulEl.innerHTML += `</ul>`;
-  }
-}
-
-//Clear input
-clearBtn.addEventListener("click", function () {
-  localStorage.clear();
-  myLeads = [];
-  render(myLeads);
+// View All Tabs → open viewer.html in new tab
+viewAllBtn.addEventListener("click", () => {
+  chrome.tabs.create({ url: "viewer/viewer.html" });
 });
 
-//Save tabs
-tabBtn.addEventListener("click", function () {
+// Save current tab
+tabBtn.addEventListener("click", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (!tabs || !tabs[0]) {
       console.warn("No active tab found");
@@ -87,13 +38,13 @@ tabBtn.addEventListener("click", function () {
 
     const url = tabs[0].url;
     const category = categoryEl.value;
-    const description = inputEl ? inputEl.value.trim() : "";
+    const description = inputEl?.value.trim() || "";
     const timestamp = new Date().toLocaleString();
 
     if (!myLeads.some((lead) => lead.url === url)) {
       myLeads.push({ url, category, description, timestamp });
-      localStorage.setItem("myLeads", JSON.stringify(myLeads));
-      render(myLeads);
+      saveLeads(myLeads);
+      renderLeads(myLeads, ulEl);
     }
 
     if (inputEl) inputEl.value = "";
@@ -101,44 +52,25 @@ tabBtn.addEventListener("click", function () {
     tabBtn.classList.add("saved");
     setTimeout(() => tabBtn.classList.remove("saved"), 300);
   });
-
-  console.log("Save Tab clicked");
-  console.log("Tab URL:", tabs[0]?.url);
-  console.log("Category:", category);
-  console.log("Description:", description);
 });
 
-//Categories
-function guessCategory(url) {
-  if (url.includes("youtube.com")) return "Videos";
-  if (url.includes("linkedin.com")) return "Profiles";
-  if (url.includes("medium.com") || url.includes("blog")) return "Articles";
-  return "Uncategorized";
-}
+// Clear all saved tabs and categories
+clearBtn.addEventListener("click", () => {
+  localStorage.clear();
+  myLeads = [];
+  categories = [];
+  renderLeads(myLeads, ulEl);
+  renderCategoryOptions(categories, categoryEl);
+});
 
-function renderCategoryOptions() {
-  categoryEl.innerHTML = "";
-  categories.forEach((cat) => {
-    const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat;
-    categoryEl.appendChild(option);
-  });
-
-  const addNewOption = document.createElement("option");
-  addNewOption.value = "__new__";
-  addNewOption.textContent = "➕ Add new category";
-  categoryEl.appendChild(addNewOption);
-}
-
-//Add a new category
-addCategoryBtn.addEventListener("click", function () {
+// Add new category
+addCategoryBtn.addEventListener("click", () => {
   const newCat = newCategoryEl.value.trim();
   if (newCat && !categories.includes(newCat)) {
     categories.push(newCat);
-    localStorage.setItem("categories", JSON.stringify(categories));
-    renderCategoryOptions();
-    categoryEl.value = newCat; // auto-select new category
+    saveCategories(categories);
+    renderCategoryOptions(categories, categoryEl);
+    categoryEl.value = newCat;
     newCategoryEl.value = "";
     newCategoryEl.style.display = "none";
     addCategoryBtn.style.display = "none";
@@ -148,15 +80,16 @@ addCategoryBtn.addEventListener("click", function () {
   }
 });
 
-categoryEl.addEventListener("change", function () {
+// Show/hide new category input
+categoryEl.addEventListener("change", () => {
   const isNew = categoryEl.value === "__new__";
   newCategoryEl.style.display = isNew ? "inline-block" : "none";
   addCategoryBtn.style.display = isNew ? "inline-block" : "none";
+  deleteCategoryBtn.disabled = isNew;
 });
 
-//Delete category
-
-deleteCategoryBtn.addEventListener("click", function () {
+// Delete selected category and its leads
+deleteCategoryBtn.addEventListener("click", () => {
   const selectedCat = categoryEl.value;
 
   if (selectedCat === "__new__") {
@@ -172,13 +105,13 @@ deleteCategoryBtn.addEventListener("click", function () {
       categories = categories.filter((cat) => cat !== selectedCat);
       myLeads = myLeads.filter((lead) => lead.category !== selectedCat);
 
-      localStorage.setItem("categories", JSON.stringify(categories));
-      localStorage.setItem("myLeads", JSON.stringify(myLeads));
+      saveCategories(categories);
+      saveLeads(myLeads);
 
-      renderCategoryOptions();
-      render(myLeads);
+      renderCategoryOptions(categories, categoryEl);
+      renderLeads(myLeads, ulEl);
 
-      categoryEl.value = categories[0] || "__new__"; // fallback
+      categoryEl.value = categories[0] || "__new__";
       newCategoryEl.style.display =
         categoryEl.value === "__new__" ? "inline-block" : "none";
       addCategoryBtn.style.display =

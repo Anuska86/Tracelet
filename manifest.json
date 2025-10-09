@@ -8,6 +8,12 @@
   },
   "permissions": ["tabs"],
   "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["viewer.html", "viewer.js", "viewer.css"],
+      "matches": ["<all_urls>"]
+    }
+  ],
 
   "icons": {
     "128": "bookmark-icon.png"
