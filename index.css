@@ -145,6 +145,7 @@ a {
 .favorite-toggle-container {
   margin-top: 10px;
   font-size: 14px;
+  color: #ffcc00;
 }
 #favorite-checkbox {
   margin-right: 6px;
