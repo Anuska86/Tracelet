@@ -41,9 +41,4 @@ export function renderCategoryOptions(categories, selectEl) {
   addNewOption.value = "__new__";
   addNewOption.textContent = "➕ Add new category";
   selectEl.appendChild(addNewOption);
-
-  const deleteOption = document.createElement("option");
-  deleteOption.value = "__delete__";
-  deleteOption.textContent = "🗑 Delete selected category";
-  selectEl.appendChild(deleteOption);
 }

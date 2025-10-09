@@ -16,11 +16,12 @@ const newCategoryEl = document.getElementById("new-category-el");
 const clearBtn = document.getElementById("clear-btn");
 const tabBtn = document.getElementById("tab-btn");
 const addCategoryBtn = document.getElementById("add-category-btn");
+const deleteCategoryBtn = document.getElementById("delete-category-btn");
+
 const viewAllBtn = document.getElementById("view-all-btn");
 
 // Initial render
 renderCategoryOptions(categories, categoryEl);
-renderLeads(myLeads, ulEl);
 
 // View All Tabs → open viewer.html in new tab
 viewAllBtn.addEventListener("click", () => {
@@ -84,7 +85,33 @@ categoryEl.addEventListener("change", () => {
   const isNew = categoryEl.value === "__new__";
   newCategoryEl.style.display = isNew ? "inline-block" : "none";
   addCategoryBtn.style.display = isNew ? "inline-block" : "none";
-  deleteCategoryBtn.disabled = isNew;
+});
+
+//Delete category
+
+deleteCategoryBtn.addEventListener("click", () => {
+  const selectedCat = categoryEl.value;
+
+  if (
+    !selectedCat ||
+    selectedCat === "__new__" ||
+    !categories.includes(selectedCat)
+  ) {
+    alert("Please select a valid category to delete.");
+    return;
+  }
+
+  const confirmed = confirm(`Delete "${selectedCat}" and all its saved items?`);
+  if (confirmed) {
+    categories = categories.filter((cat) => cat !== selectedCat);
+    myLeads = myLeads.filter((lead) => lead.category !== selectedCat);
+
+    saveCategories(categories);
+    saveLeads(myLeads);
+
+    renderCategoryOptions(categories, categoryEl);
+    categoryEl.value = categories[0] || "__new__";
+  }
 });
 
 // Delete selected category and its leads
@@ -97,30 +124,5 @@ categoryEl.addEventListener("change", () => {
   } else {
     newCategoryEl.style.display = "none";
     addCategoryBtn.style.display = "none";
-  }
-
-  if (value === "__delete__") {
-    const selectedCat = categoryEl.options[categoryEl.selectedIndex - 1]?.value;
-
-    if (!selectedCat || !categories.includes(selectedCat)) {
-      alert("Please select a valid category to delete.");
-      return;
-    }
-
-    const confirmed = confirm(
-      `Delete "${selectedCat}" and all its saved items?`
-    );
-    if (confirmed) {
-      categories = categories.filter((cat) => cat !== selectedCat);
-      myLeads = myLeads.filter((lead) => lead.category !== selectedCat);
-
-      saveCategories(categories);
-      saveLeads(myLeads);
-
-      renderCategoryOptions(categories, categoryEl);
-      renderLeads(myLeads, ulEl);
-
-      categoryEl.value = categories[0] || "__new__";
-    }
   }
 });
