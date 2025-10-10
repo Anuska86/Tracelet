@@ -1,3 +1,5 @@
+import { saveLeads } from "./storage.js";
+
 export function renderLeads(leads, container) {
   const grouped = leads.reduce((acc, lead) => {
     if (!lead.category) return acc;
@@ -39,16 +41,20 @@ export function renderLeads(leads, container) {
       renderLeads(updatedLeads, container);
     });
   });
-
   const favoriteButtons = container.querySelectorAll(".favorite-toggle");
+
   favoriteButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       const url = e.target.dataset.url;
       const updatedLeads = leads.map((lead) =>
         lead.url === url ? { ...lead, isFavorite: !lead.isFavorite } : lead
       );
-      saveLeads(updatedLeads);
+
+      await saveLeads(updatedLeads);
       renderLeads(updatedLeads, container);
+
+      btn.classList.add("favorited");
+      setTimeout(() => btn.classList.remove("favorited"), 300);
     });
   });
 }

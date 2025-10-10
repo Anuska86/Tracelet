@@ -13,9 +13,10 @@ export async function getLeads() {
 }
 
 export function saveLeads(leads) {
-  localStorage.setItem("myLeads", JSON.stringify(leads));
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ myLeads: leads }, resolve);
+  });
 }
-
 export function getCategories() {
   const saved = JSON.parse(localStorage.getItem("categories"));
   return saved && saved.length > 0
