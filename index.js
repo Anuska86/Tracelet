@@ -7,6 +7,7 @@ import {
 } from "./scripts/storage.js";
 import { guessCategory } from "./scripts/categories.js";
 
+let myLeads = [];
 let categories = getCategories();
 
 const inputEl = document.getElementById("input-el");
@@ -28,11 +29,9 @@ renderCategoryOptions(categories, categoryEl);
 
 //renderLeads(myLeads, ulEl);
 
-getLeads().then((myLeads) => {
-  const favoriteLeads = Array.isArray(myLeads)
-    ? myLeads.filter((lead) => lead.isFavorite)
-    : [];
-
+getLeads().then((leads) => {
+  myLeads = Array.isArray(leads) ? leads : [];
+  const favoriteLeads = myLeads.filter((lead) => lead.isFavorite);
   renderLeads(favoriteLeads, ulEl);
 });
 
@@ -41,8 +40,17 @@ viewAllBtn.addEventListener("click", () => {
   chrome.tabs.create({ url: "viewer/viewer.html" });
 });
 
-// Save current tab
+//Confirm Save
+
+const favoriteContainer = document.querySelector(".favorite-toggle-container");
+const confirmSaveBtn = document.getElementById("confirm-save-btn");
+
 tabBtn.addEventListener("click", () => {
+  favoriteContainer.style.display = "block";
+  confirmSaveBtn.style.display = "inline-block";
+});
+
+confirmSaveBtn.addEventListener("click", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (!tabs || !tabs[0]) {
       console.warn("No active tab found");
@@ -54,6 +62,7 @@ tabBtn.addEventListener("click", () => {
     if (!category || category === "__new__") {
       category = guessCategory(url);
     }
+
     const description = inputEl?.value.trim() || "";
     const isFavorite = document.getElementById("favorite-checkbox").checked;
     const timestamp = new Date().toLocaleString();
@@ -65,6 +74,8 @@ tabBtn.addEventListener("click", () => {
 
     inputEl.value = "";
     document.getElementById("favorite-checkbox").checked = false;
+    favoriteContainer.style.display = "none";
+    confirmSaveBtn.style.display = "none";
 
     tabBtn.classList.add("saved");
     setTimeout(() => tabBtn.classList.remove("saved"), 300);
@@ -73,11 +84,12 @@ tabBtn.addEventListener("click", () => {
 
 // Clear all saved tabs and categories
 clearBtn.addEventListener("click", () => {
-  localStorage.clear();
+  chrome.storage.local.clear(() => {
+    renderLeads([], ulEl);
+    renderCategoryOptions([], categoryEl);
+  });
   myLeads = [];
   categories = [];
-  renderLeads(myLeads, ulEl);
-  renderCategoryOptions(categories, categoryEl);
 });
 
 // Add new category
@@ -142,18 +154,4 @@ categoryEl.addEventListener("change", () => {
     newCategoryEl.style.display = "none";
     addCategoryBtn.style.display = "none";
   }
-});
-
-// Show favorite option when Save Tab is clicked
-
-tabBtn.addEventListener("click", () => {
-  const favoriteContainer = document.querySelector(
-    ".favorite-toggle-container"
-  );
-  favoriteContainer.style.display = "block";
-
-  // Optionally auto-hide after a few seconds
-  setTimeout(() => {
-    favoriteContainer.style.display = "none";
-  }, 4000);
 });

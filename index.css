@@ -145,6 +145,12 @@ a {
   margin-top: 10px;
   display: flex;
   align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.favorite-toggle-container.show {
+  opacity: 1;
 }
 
 .favorite-label {
