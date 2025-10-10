@@ -1,5 +1,15 @@
-export function getLeads() {
-  return JSON.parse(localStorage.getItem("myLeads")) || [];
+export async function getLeads() {
+  return new Promise((resolve) => {
+    if (!chrome.storage || !chrome.storage.local) {
+      console.warn("chrome.storage.local is not available");
+      resolve([]);
+      return;
+    }
+
+    chrome.storage.local.get(["myLeads"], (result) => {
+      resolve(result.myLeads || []);
+    });
+  });
 }
 
 export function saveLeads(leads) {

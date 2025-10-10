@@ -7,7 +7,6 @@ import {
 } from "./scripts/storage.js";
 import { guessCategory } from "./scripts/categories.js";
 
-let myLeads = getLeads();
 let categories = getCategories();
 
 const inputEl = document.getElementById("input-el");
@@ -29,8 +28,13 @@ renderCategoryOptions(categories, categoryEl);
 
 //renderLeads(myLeads, ulEl);
 
-const favoriteLeads = myLeads.filter((lead) => lead.isFavorite);
-renderLeads(favoriteLeads, ulEl);
+getLeads().then((myLeads) => {
+  const favoriteLeads = Array.isArray(myLeads)
+    ? myLeads.filter((lead) => lead.isFavorite)
+    : [];
+
+  renderLeads(favoriteLeads, ulEl);
+});
 
 // View All Tabs → open viewer.html in new tab
 viewAllBtn.addEventListener("click", () => {

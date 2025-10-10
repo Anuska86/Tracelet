@@ -7,7 +7,7 @@
     "default_icon": "assets/bookmark-icon.png",
     "default_title": "Open Tracelet"
   },
-  "permissions": ["tabs"],
+  "permissions": ["storage", "tabs"],
   "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {
