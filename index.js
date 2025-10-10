@@ -5,6 +5,7 @@ import {
   getCategories,
   saveCategories,
 } from "./scripts/storage.js";
+import { guessCategory } from "./scripts/categories.js";
 
 let myLeads = getLeads();
 let categories = getCategories();
@@ -45,20 +46,20 @@ tabBtn.addEventListener("click", () => {
     }
 
     const url = tabs[0].url;
-    const category = categoryEl.value;
+    let category = categoryEl.value;
+    if (!category || category === "__new__") {
+      category = guessCategory(url);
+    }
     const description = inputEl?.value.trim() || "";
+    const isFavorite = document.getElementById("favorite-checkbox").checked;
     const timestamp = new Date().toLocaleString();
 
-    if (!myLeads.some((lead) => lead.url === url)) {
-      const isFavorite = document.getElementById("favorite-checkbox").checked;
-      myLeads.push({ url, category, description, timestamp, isFavorite });
+    chrome.runtime.sendMessage({
+      action: "saveTab",
+      payload: { url, category, description, timestamp, isFavorite },
+    });
 
-      saveLeads(myLeads);
-      const favoriteLeads = myLeads.filter((lead) => lead.isFavorite);
-      renderLeads(favoriteLeads, ulEl);
-    }
-
-    if (inputEl) inputEl.value = "";
+    inputEl.value = "";
     document.getElementById("favorite-checkbox").checked = false;
 
     tabBtn.classList.add("saved");

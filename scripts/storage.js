@@ -10,7 +10,7 @@ export function getCategories() {
   const saved = JSON.parse(localStorage.getItem("categories"));
   return saved && saved.length > 0
     ? saved
-    : ["Profiles", "Videos", "Articles", "Books"];
+    : ["Profiles", "Videos", "Articles", "Books", "Uncategorized"];
 }
 
 export function saveCategories(categories) {

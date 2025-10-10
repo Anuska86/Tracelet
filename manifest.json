@@ -19,6 +19,9 @@
       "matches": ["<all_urls>"]
     }
   ],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
 
   "icons": {
     "128": "assets/bookmark-icon.png"
