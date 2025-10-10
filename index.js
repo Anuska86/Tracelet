@@ -143,3 +143,17 @@ categoryEl.addEventListener("change", () => {
     addCategoryBtn.style.display = "none";
   }
 });
+
+// Show favorite option when Save Tab is clicked
+
+tabBtn.addEventListener("click", () => {
+  const favoriteContainer = document.querySelector(
+    ".favorite-toggle-container"
+  );
+  favoriteContainer.style.display = "block";
+
+  // Optionally auto-hide after a few seconds
+  setTimeout(() => {
+    favoriteContainer.style.display = "none";
+  }, 4000);
+});

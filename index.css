@@ -1,5 +1,4 @@
 * {
-  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -180,4 +179,8 @@ a {
 }
 .favorite-toggle:hover {
   transform: scale(1.2);
+}
+
+.favorites-tabs {
+  margin-top: 4px;
 }
