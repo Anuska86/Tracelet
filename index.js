@@ -58,6 +58,7 @@ tabBtn.addEventListener("click", () => {
 
   favoriteContainer.style.display = "block";
   confirmSaveBtn.style.display = "inline-block";
+  confirmSaveBtn.classList.add("show");
 
   inputEl.focus();
 });

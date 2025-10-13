@@ -111,6 +111,15 @@ a {
 
 /*Save*/
 
+#confirm-save-btn {
+  margin-top: 8px;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+#confirm-save-btn.show {
+  opacity: 1;
+}
+
 .saved {
   animation: pulse 0.3s ease-in-out;
 }
