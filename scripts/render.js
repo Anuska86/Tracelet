@@ -16,15 +16,20 @@ const categoryEmojis = {
   Uncategorized: "📌",
 };
 
-export function renderLeads(leads, container) {
+export async function renderLeads(leads, container) {
+  container.innerHTML = "";
+
+  if (!leads || leads.length === 0) {
+    container.innerHTML = "<p>No matching tabs found.</p>";
+    return;
+  }
+
   const grouped = leads.reduce((acc, lead) => {
     if (!lead.category) return acc;
     acc[lead.category] = acc[lead.category] || [];
     acc[lead.category].push(lead);
     return acc;
   }, {});
-
-  container.innerHTML = "";
 
   if (Object.keys(grouped).length === 0) {
     container.innerHTML =
@@ -45,7 +50,6 @@ export function renderLeads(leads, container) {
         categoryEmojis[lead.category] ||
         "📌";
       const label = `${emoji} ${lead.description || lead.url}`;
-
       const color = localStorage.getItem(`color-${lead.category}`) || "#7f8c8d";
 
       container.innerHTML += `
@@ -60,14 +64,14 @@ export function renderLeads(leads, container) {
   </div>
 </li>`;
     });
+
     container.innerHTML += `</ul>`;
   }
-  const deleteButtons = container.querySelectorAll(".delete-btn");
 
+  const deleteButtons = container.querySelectorAll(".delete-btn");
   deleteButtons.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       const urlToDelete = e.target.dataset.url;
-
       const confirmed = confirm("🗑️ Are you sure you want to delete this tab?");
       if (!confirmed) return;
 
@@ -79,7 +83,6 @@ export function renderLeads(leads, container) {
   });
 
   const favoriteButtons = container.querySelectorAll(".favorite-toggle");
-
   favoriteButtons.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       const url = e.target.dataset.url;
