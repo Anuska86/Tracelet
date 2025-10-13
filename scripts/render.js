@@ -49,15 +49,15 @@ export function renderLeads(leads, container) {
       const color = localStorage.getItem(`color-${lead.category}`) || "#7f8c8d";
 
       container.innerHTML += `
-<li class="tab-entry" data-category="${
-        lead.category
-      }" style="border-left: 4px solid ${color};">
+<li class="tab-entry" data-category="${lead.category}">
   <a target="_blank" href="${lead.url}">${label}</a>
   <span class="timestamp">${lead.timestamp}</span>
-  <button class="favorite-toggle" data-url="${lead.url}">
-    ${lead.isFavorite ? "⭐" : "☆"}
-  </button>
-  <button class="delete-btn" data-url="${lead.url}">🗑️</button>
+  <div class="tab-actions">
+    <button class="favorite-toggle" data-url="${lead.url}">
+      ${lead.isFavorite ? "⭐" : "☆"}
+    </button>
+    <button class="delete-btn" data-url="${lead.url}">🗑️</button>
+  </div>
 </li>`;
     });
     container.innerHTML += `</ul>`;
