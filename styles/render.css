@@ -1,4 +1,43 @@
 .favorited {
   transform: scale(1.3);
   transition: transform 0.3s ease;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+/*TABS*/
+.tab-entry[data-category="Videos"] {
+  border-left: 4px solid #e74c3c;
+}
+.tab-entry[data-category="Articles"] {
+  border-left: 4px solid #34495e;
+}
+.tab-entry[data-category="Articles"] {
+  border-left: 4px solid #34495e;
+}
+
+.tab-entry[data-category="Quantum"] {
+  border-left: 4px solid #9b59b6;
+}
+.tab-entry[data-category="Music"] {
+  border-left: 4px solid #e67e22;
+}
+
+.tab-entry[data-category="AI"] {
+  border-left: 4px solid #2ecc71;
+}
+.tab-entry[data-category="Space"] {
+  border-left: 4px solid #3498db;
+}
+.tab-entry[data-category="Animals"] {
+  border-left: 4px solid #f39c12;
+}
+.tab-entry[data-category="Travel"] {
+  border-left: 4px solid #1abc9c;
+}
+
+.tab-entry[data-category="Science"] {
+  border-left: 4px solid #2980b9;
+}
+.tab-entry[data-category="Space"] {
+  border-left: 4px solid #3498db;
 }

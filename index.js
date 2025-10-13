@@ -110,14 +110,25 @@ clearBtn.addEventListener("click", () => {
 // Add new category
 addCategoryBtn.addEventListener("click", () => {
   const newCat = newCategoryEl.value.trim();
+  const emoji = document.getElementById("emoji-picker").value.trim() || "📌";
+  const pastelColors = ["#f39c12", "#1abc9c", "#9b59b6", "#e67e22", "#3498db"];
+  const color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+  localStorage.setItem(`color-${newCat}`, color);
+
   if (newCat && !categories.includes(newCat)) {
     categories.push(newCat);
     saveCategories(categories);
+
+    // Optional: store emoji in a separate map
+    localStorage.setItem(`emoji-${newCat}`, emoji);
+
     renderCategoryOptions(categories, categoryEl);
     categoryEl.value = newCat;
     newCategoryEl.value = "";
+    document.getElementById("emoji-picker").value = "";
     newCategoryEl.style.display = "none";
     addCategoryBtn.style.display = "none";
+    document.getElementById("emoji-picker").style.display = "none";
 
     addCategoryBtn.classList.add("saved");
     setTimeout(() => addCategoryBtn.classList.remove("saved"), 300);
@@ -129,6 +140,9 @@ categoryEl.addEventListener("change", () => {
   const isNew = categoryEl.value === "__new__";
   newCategoryEl.style.display = isNew ? "inline-block" : "none";
   addCategoryBtn.style.display = isNew ? "inline-block" : "none";
+  document.getElementById("emoji-picker").style.display = isNew
+    ? "inline-block"
+    : "none";
 });
 
 //Delete category

@@ -1,5 +1,21 @@
 import { saveLeads } from "./storage.js";
 
+const categoryEmojis = {
+  Profiles: "👤",
+  Videos: "🎬",
+  Articles: "📰",
+  Books: "📚",
+  Music: "🎵",
+  Quantum: "💻",
+  English: "📘",
+  Travel: "✈️",
+  Animals: "🐱",
+  Science: "🔬",
+  AI: "🤖",
+  Space: "🚀",
+  Uncategorized: "📌",
+};
+
 export function renderLeads(leads, container) {
   const grouped = leads.reduce((acc, lead) => {
     if (!lead.category) return acc;
@@ -17,18 +33,32 @@ export function renderLeads(leads, container) {
   }
 
   for (const category in grouped) {
-    container.innerHTML += `<h3>${category}</h3><ul>`;
+    const emoji =
+      localStorage.getItem(`emoji-${category}`) ||
+      categoryEmojis[category] ||
+      "📌";
+    container.innerHTML += `<h3>${emoji} ${category}</h3><ul>`;
+
     grouped[category].forEach((lead) => {
+      const emoji =
+        localStorage.getItem(`emoji-${lead.category}`) ||
+        categoryEmojis[lead.category] ||
+        "📌";
+      const label = `${emoji} ${lead.description || lead.url}`;
+
+      const color = localStorage.getItem(`color-${lead.category}`) || "#7f8c8d";
+
       container.innerHTML += `
-  <li>
-    <a target="_blank" href="${lead.url}">${lead.url}</a>
-    ${lead.description ? `<p class="description">${lead.description}</p>` : ""}
-    <span class="timestamp">${lead.timestamp}</span>
-    <button class="favorite-toggle" data-url="${lead.url}">
-      ${lead.isFavorite ? "⭐" : "☆"}
-    </button>
-    <button class="delete-btn" data-url="${lead.url}">🗑️</button>
-  </li>`;
+<li class="tab-entry" data-category="${
+        lead.category
+      }" style="border-left: 4px solid ${color};">
+  <a target="_blank" href="${lead.url}">${label}</a>
+  <span class="timestamp">${lead.timestamp}</span>
+  <button class="favorite-toggle" data-url="${lead.url}">
+    ${lead.isFavorite ? "⭐" : "☆"}
+  </button>
+  <button class="delete-btn" data-url="${lead.url}">🗑️</button>
+</li>`;
     });
     container.innerHTML += `</ul>`;
   }
@@ -64,7 +94,9 @@ export function renderCategoryOptions(categories, selectEl) {
   categories.forEach((cat) => {
     const option = document.createElement("option");
     option.value = cat;
-    option.textContent = cat;
+    option.textContent = `${
+      localStorage.getItem(`emoji-${cat}`) || categoryEmojis[cat] || "📌"
+    } ${cat}`;
     selectEl.appendChild(option);
   });
 
