@@ -18,9 +18,11 @@ const newCategoryEl = document.getElementById("new-category-el");
 const clearBtn = document.getElementById("clear-btn");
 const tabBtn = document.getElementById("tab-btn");
 const addCategoryBtn = document.getElementById("add-category-btn");
-const deleteCategoryBtn = document.getElementById("delete-category-btn");
 
 const viewAllBtn = document.getElementById("view-all-btn");
+
+const emojiLabel = document.querySelector("label[for='emoji-picker']");
+const deleteCategoryBtn = document.getElementById("delete-category-btn");
 
 const emojiPicker = document.getElementById("emoji-picker");
 const emojiSuggestions = document.getElementById("emoji-suggestions");
@@ -33,6 +35,11 @@ console.log("chrome.tabs:", chrome.tabs);
 
 // Initial render
 renderCategoryOptions(categories, categoryEl);
+categoryEl.value = categories.length > 0 ? categories[0] : "";
+categoryEl.dispatchEvent(new Event("change"));
+emojiLabel.style.display = "none";
+deleteCategoryBtn.style.display =
+  categories.length > 0 ? "inline-block" : "none";
 
 //renderLeads(myLeads, ulEl);
 
@@ -109,6 +116,9 @@ clearBtn.addEventListener("click", () => {
   chrome.storage.local.clear(() => {
     renderLeads([], ulEl);
     renderCategoryOptions([], categoryEl);
+
+    categoryEl.value = "";
+    categoryEl.dispatchEvent(new Event("change"));
   });
   myLeads = [];
   categories = [];
@@ -132,13 +142,12 @@ addCategoryBtn.addEventListener("click", () => {
 
     renderCategoryOptions(categories, categoryEl);
     categoryEl.value = newCat;
+    categoryEl.dispatchEvent(new Event("change"));
+
     newCategoryEl.value = "";
-    document.getElementById("emoji-picker").value = "";
-    newCategoryEl.style.display = "none";
-    addCategoryBtn.style.display = "none";
-    document.getElementById("emoji-picker").style.display = "none";
-    document.getElementById("emoji-suggestions").value = "📌";
-    document.getElementById("emoji-suggestions").style.display = "none";
+
+    emojiPicker.value = "";
+    emojiSuggestions.value = "📌";
 
     addCategoryBtn.classList.add("saved");
     setTimeout(() => addCategoryBtn.classList.remove("saved"), 300);
@@ -146,16 +155,21 @@ addCategoryBtn.addEventListener("click", () => {
 });
 
 // Show/hide new category input
+
 categoryEl.addEventListener("change", () => {
-  const isNew = categoryEl.value === "__new__";
-  newCategoryEl.style.display = isNew ? "inline-block" : "none";
-  addCategoryBtn.style.display = isNew ? "inline-block" : "none";
-  document.getElementById("emoji-picker").style.display = isNew
-    ? "inline-block"
-    : "none";
-  document.getElementById("emoji-suggestions").style.display = isNew
-    ? "inline-block"
-    : "none";
+  const value = categoryEl.value;
+  const isCreatingNew = value === "__new__";
+  const isValidCategory = value && value !== "__new__";
+
+  // Show/hide new category inputs
+  newCategoryEl.style.display = isCreatingNew ? "inline-block" : "none";
+  addCategoryBtn.style.display = isCreatingNew ? "inline-block" : "none";
+  emojiPicker.style.display = isCreatingNew ? "inline-block" : "none";
+  emojiSuggestions.style.display = isCreatingNew ? "inline-block" : "none";
+  emojiLabel.style.display = isCreatingNew ? "inline-block" : "none";
+
+  // Show/hide delete button
+  deleteCategoryBtn.style.display = isValidCategory ? "inline-block" : "none";
 });
 
 //Delete category
@@ -181,19 +195,7 @@ deleteCategoryBtn.addEventListener("click", () => {
     saveLeads(myLeads);
 
     renderCategoryOptions(categories, categoryEl);
-    categoryEl.value = categories[0] || "__new__";
-  }
-});
-
-// Delete selected category and its leads
-categoryEl.addEventListener("change", () => {
-  const value = categoryEl.value;
-
-  if (value === "__new__") {
-    newCategoryEl.style.display = "inline-block";
-    addCategoryBtn.style.display = "inline-block";
-  } else {
-    newCategoryEl.style.display = "none";
-    addCategoryBtn.style.display = "none";
+    categoryEl.value = categories.length > 0 ? categories[0] : "";
+    categoryEl.dispatchEvent(new Event("change"));
   }
 });
