@@ -46,8 +46,20 @@ const favoriteContainer = document.querySelector(".favorite-toggle-container");
 const confirmSaveBtn = document.getElementById("confirm-save-btn");
 
 tabBtn.addEventListener("click", () => {
+  const selectedCategory = categoryEl.value;
+  const categoryLabel =
+    selectedCategory === "__new__" ? "a new category" : `"${selectedCategory}"`;
+
+  const savePrompt = document.getElementById("save-prompt");
+  const saveMessage = document.getElementById("save-message");
+
+  saveMessage.textContent = `💾 Do you want to save this tab to ${categoryLabel}?`;
+  savePrompt.style.display = "block";
+
   favoriteContainer.style.display = "block";
   confirmSaveBtn.style.display = "inline-block";
+
+  inputEl.focus();
 });
 
 confirmSaveBtn.addEventListener("click", () => {
@@ -80,6 +92,8 @@ confirmSaveBtn.addEventListener("click", () => {
     tabBtn.classList.add("saved");
     setTimeout(() => tabBtn.classList.remove("saved"), 300);
   });
+
+  document.getElementById("save-prompt").style.display = "none";
 });
 
 // Clear all saved tabs and categories

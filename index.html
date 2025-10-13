@@ -27,6 +27,9 @@
     <button id="delete-category-btn">Delete Category</button>
 
     <button id="tab-btn">Save Tab</button>
+    <div id="save-prompt" style="display: none; margin-top: 10px">
+      <p id="save-message">Do you want to save this tab?</p>
+    </div>
     <button id="clear-btn">Clear all</button>
     <button id="view-all-btn">View All Your Tabs</button>
 
@@ -36,10 +39,11 @@
         <span class="favorite-text">&#9733; Mark as Favorite</span>
       </label>
     </div>
-    <button id="confirm-save-btn" style="display: none">Confirm Save</button>
 
     <h2 id="favorites-tabs">Favorites Tabs</h2>
     <div id="ul-el">No tabs saved yet.</div>
+
+    <button id="confirm-save-btn" style="display: none">Confirm Save</button>
 
     <script type="module" src="index.js"></script>
   </body>
