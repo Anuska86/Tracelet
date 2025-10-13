@@ -1,4 +1,4 @@
-import { saveLeads } from "./storage.js";
+import { getLeads, saveLeads } from "./storage.js";
 
 const categoryEmojis = {
   Profiles: "👤",
@@ -63,14 +63,21 @@ export function renderLeads(leads, container) {
     container.innerHTML += `</ul>`;
   }
   const deleteButtons = container.querySelectorAll(".delete-btn");
+
   deleteButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       const urlToDelete = e.target.dataset.url;
-      const updatedLeads = leads.filter((lead) => lead.url !== urlToDelete);
-      saveLeads(updatedLeads);
+
+      const confirmed = confirm("🗑️ Are you sure you want to delete this tab?");
+      if (!confirmed) return;
+
+      const allLeads = await getLeads();
+      const updatedLeads = allLeads.filter((lead) => lead.url !== urlToDelete);
+      await saveLeads(updatedLeads);
       renderLeads(updatedLeads, container);
     });
   });
+
   const favoriteButtons = container.querySelectorAll(".favorite-toggle");
 
   favoriteButtons.forEach((btn) => {
