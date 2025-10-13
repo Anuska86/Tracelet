@@ -22,3 +22,5 @@ searchInput.addEventListener("input", () => {
 
   renderLeads(filtered, container);
 });
+
+
