@@ -7,8 +7,12 @@
     "default_icon": "assets/bookmark-icon.png",
     "default_title": "Open Tracelet"
   },
+  "description": "Save tabs with style. Emoji-powered categories, cinematic feedback, and intentional UX for the modern web explorer.",
   "permissions": ["storage", "tabs"],
   "host_permissions": ["<all_urls>"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "web_accessible_resources": [
     {
       "resources": [
