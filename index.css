@@ -113,6 +113,16 @@ button:disabled {
   flex-wrap: wrap;
 }
 
+
+#view-more-favorites-btn{
+display: block;
+margin: 20px auto;
+padding: 8px 16px;
+font-size: 14px;
+border-radius: 6px;
+
+}
+
 /*List*/
 ul {
   color: #3fa7a7;

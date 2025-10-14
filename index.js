@@ -18,8 +18,13 @@ const newCategoryEl = document.getElementById("new-category-el");
 const clearBtn = document.getElementById("clear-btn");
 const tabBtn = document.getElementById("tab-btn");
 const addCategoryBtn = document.getElementById("add-category-btn");
-
 const viewAllBtn = document.getElementById("view-all-btn");
+
+const viewMoreFavoritesBtn = document.getElementById("view-more-favorites-btn");
+
+viewMoreFavoritesBtn.addEventListener("click", () => {
+  chrome.tabs.create({ url: "viewer/viewer.html?filter=favorites" });
+});
 
 const emojiLabel = document.querySelector("label[for='emoji-picker']");
 const deleteCategoryBtn = document.getElementById("delete-category-btn");
@@ -36,8 +41,6 @@ emojiSuggestions.addEventListener("change", (e) => {
 inputEl.placeholder = chrome.i18n.getMessage("description_placeholder");
 newCategoryEl.placeholder = chrome.i18n.getMessage("new_category_placeholder");
 emojiPicker.placeholder = chrome.i18n.getMessage("emoji_placeholder");
-
-console.log("chrome.tabs:", chrome.tabs);
 
 // Initial render
 renderCategoryOptions(categories, categoryEl);

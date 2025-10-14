@@ -162,3 +162,9 @@ a:hover {
     transform: translateY(0);
   }
 }
+
+/*button*/
+
+#back-to-all-btn {
+  margin-top: 4px;
+}
