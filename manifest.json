@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
   "version": "1.0",
-  "name": "Tracelet",
+  "name": "__MSG_extension_name__",
+  "description": "__MSG_extension_description__",
   "action": {
     "default_popup": "index.html",
     "default_icon": "assets/bookmark-icon.png",
-    "default_title": "Open Tracelet"
+    "default_title": "__MSG_extension_title__"
   },
-  "description": "Save tabs with style. Emoji-powered categories, cinematic feedback, and intentional UX for the modern web explorer.",
   "permissions": ["storage", "tabs"],
   "host_permissions": ["<all_urls>"],
   "content_security_policy": {
@@ -26,8 +26,8 @@
   "background": {
     "service_worker": "scripts/background.js"
   },
-
   "icons": {
     "128": "assets/bookmark-icon.png"
-  }
+  },
+  "default_locale": "en"
 }

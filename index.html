@@ -1,7 +1,7 @@
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="styles/categories.css" />
   </head>
@@ -11,12 +11,15 @@
       id="input-el"
       placeholder="Add a short description (optional)"
     />
+
     <select id="category-el">
       <option value="Profiles">Profiles</option>
       <option value="Videos">Videos</option>
       <option value="Articles">Articles</option>
       <option value="Books">Books</option>
-      <option value="__new__">➕ Add new category</option>
+      <option value="__new__">
+        ➕ <span i18n-content="add_new_category">Add new category</span>
+      </option>
     </select>
 
     <input
@@ -25,6 +28,7 @@
       placeholder="Name your new category"
       style="display: none"
     />
+
     <input
       type="text"
       id="emoji-picker"
@@ -33,53 +37,69 @@
       style="display: none; width: 40px; text-align: center"
     />
 
-    <label for="emoji-picker" style="font-size: 12px"
-      >Pick an emoji for your category</label
-    >
-    <input
-      type="text"
-      id="emoji-picker"
-      maxlength="2"
-      placeholder="🎯"
-      style="display: none; width: 40px; text-align: center"
-    />
+    <label for="emoji-picker" style="font-size: 12px" i18n-content="pick_emoji">
+      Pick an emoji for your category
+    </label>
 
     <select id="emoji-suggestions" style="display: none">
-      <option value="📌">📌 Default</option>
-      <option value="🎬">🎬 Videos</option>
-      <option value="📰">📰 Articles</option>
-      <option value="📚">📚 Books</option>
-      <option value="💻">💻 Computing</option>
-      <option value="🔬">🔬 Science</option>
-      <option value="🚀">🚀 Space</option>
-      <option value="🐱">🐱 Animals</option>
-      <option value="✈️">✈️ Travel</option>
-      <option value="🤖">🤖 AI</option>
-      <option value="🎵">🎵 Music</option>
+      <option value="📌" i18n-content="emoji_default">📌 Default</option>
+      <option value="🎬" i18n-content="emoji_videos">🎬 Videos</option>
+      <option value="📰" i18n-content="emoji_articles">📰 Articles</option>
+      <option value="📚" i18n-content="emoji_books">📚 Books</option>
+      <option value="💻" i18n-content="emoji_computing">💻 Computing</option>
+      <option value="🔬" i18n-content="emoji_science">🔬 Science</option>
+      <option value="🚀" i18n-content="emoji_space">🚀 Space</option>
+      <option value="🐱" i18n-content="emoji_animals">🐱 Animals</option>
+      <option value="✈️" i18n-content="emoji_travel">✈️ Travel</option>
+      <option value="🤖" i18n-content="emoji_ai">🤖 AI</option>
+      <option value="🎵" i18n-content="emoji_music">🎵 Music</option>
     </select>
 
-    <button id="add-category-btn" style="display: none">Add Category</button>
-    <button id="delete-category-btn">Delete Category</button>
+    <button
+      id="add-category-btn"
+      style="display: none"
+      i18n-content="add_category"
+    >
+      Add Category
+    </button>
+    <button id="delete-category-btn" i18n-content="delete_category">
+      Delete Category
+    </button>
 
-    <button id="tab-btn">Save Tab</button>
+    <button id="tab-btn" i18n-content="save_tab">Save Tab</button>
+
     <div id="save-prompt" style="display: none; margin-top: 10px">
-      <p id="save-message">Do you want to save this tab?</p>
+      <p id="save-message" i18n-content="save_prompt">
+        Do you want to save this tab?
+      </p>
     </div>
 
-    <button id="confirm-save-btn" style="display: none">Confirm Save</button>
-    <button id="clear-btn">Clear all</button>
-    <button id="view-all-btn">View All Your Tabs</button>
+    <button
+      id="confirm-save-btn"
+      style="display: none"
+      i18n-content="confirm_save"
+    >
+      Confirm Save
+    </button>
+
+    <button id="clear-btn" i18n-content="clear_all">Clear all</button>
+    <button id="view-all-btn" i18n-content="view_all_tabs">
+      View All Your Tabs
+    </button>
 
     <div class="favorite-toggle-container" style="display: none">
       <label class="favorite-label">
         <input type="checkbox" id="favorite-checkbox" />
-        <span class="favorite-text">&#9733; Mark as Favorite</span>
+        <span class="favorite-text" i18n-content="mark_favorite"
+          >★ Mark as Favorite</span
+        >
       </label>
     </div>
 
-    <h2 id="favorites-tabs">Favorites Tabs</h2>
-    <div id="ul-el">No tabs saved yet.</div>
+    <h2 id="favorites-tabs" i18n-content="favorites_header">Favorites Tabs</h2>
+    <div id="ul-el" i18n-content="no_tabs">No tabs saved yet.</div>
 
     <script type="module" src="index.js"></script>
+    <script type="module" src="./localize.js"></script>
   </body>
 </html>

@@ -1,0 +1,38 @@
+{
+  "extension_name": { "message": "Tracelet" },
+  "extension_description": {
+    "message": "Guarda pestañas con estilo. Categorías con emojis, retroalimentación cinematográfica y una experiencia de usuario intencionada para exploradores modernos."
+  },
+  "extension_title": { "message": "Abrir Tracelet" },
+  "description_placeholder": {
+    "message": "Añade una descripción breve (opcional)"
+  },
+  "add_new_category": { "message": "Añadir nueva categoría" },
+  "new_category_placeholder": { "message": "Nombre de tu nueva categoría" },
+  "pick_emoji": { "message": "Elige un emoji para tu categoría" },
+  "add_category": { "message": "Añadir categoría" },
+  "delete_category": { "message": "Eliminar categoría" },
+  "save_tab": { "message": "Guardar pestaña" },
+  "save_prompt": { "message": "¿Quieres guardar esta pestaña?" },
+  "confirm_save": { "message": "Confirmar guardado" },
+  "clear_all": { "message": "Borrar todo" },
+  "view_all_tabs": { "message": "Ver todas tus pestañas" },
+  "mark_favorite": { "message": "★ Marcar como favorita" },
+  "favorites_header": { "message": "Pestañas favoritas" },
+  "no_tabs": { "message": "No hay pestañas guardadas aún." },
+  "search_placeholder": {
+    "message": "🔍 Buscar pestañas por palabra clave o categoría"
+  },
+  "viewer_header": { "message": "Todas las pestañas guardadas" },
+  "emoji_default": { "message": "📌 Predeterminado" },
+  "emoji_videos": { "message": "🎬 Vídeos" },
+  "emoji_articles": { "message": "📰 Artículos" },
+  "emoji_books": { "message": "📚 Libros" },
+  "emoji_computing": { "message": "💻 Informática" },
+  "emoji_science": { "message": "🔬 Ciencia" },
+  "emoji_space": { "message": "🚀 Espacio" },
+  "emoji_animals": { "message": "🐱 Animales" },
+  "emoji_travel": { "message": "✈️ Viajes" },
+  "emoji_ai": { "message": "🤖 IA" },
+  "emoji_music": { "message": "🎵 Música" }
+}

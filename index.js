@@ -24,12 +24,18 @@ const viewAllBtn = document.getElementById("view-all-btn");
 const emojiLabel = document.querySelector("label[for='emoji-picker']");
 const deleteCategoryBtn = document.getElementById("delete-category-btn");
 
+const timestamp = new Date().toLocaleString(navigator.language);
+
 const emojiPicker = document.getElementById("emoji-picker");
 const emojiSuggestions = document.getElementById("emoji-suggestions");
 
 emojiSuggestions.addEventListener("change", (e) => {
   emojiPicker.value = e.target.value;
 });
+
+inputEl.placeholder = chrome.i18n.getMessage("description_placeholder");
+newCategoryEl.placeholder = chrome.i18n.getMessage("new_category_placeholder");
+emojiPicker.placeholder = chrome.i18n.getMessage("emoji_placeholder");
 
 console.log("chrome.tabs:", chrome.tabs);
 
@@ -62,14 +68,19 @@ const confirmSaveBtn = document.getElementById("confirm-save-btn");
 tabBtn.addEventListener("click", () => {
   const selectedCategory = categoryEl.value;
   const categoryLabel =
-    selectedCategory === "__new__" ? "a new category" : `"${selectedCategory}"`;
+    selectedCategory === "__new__"
+      ? chrome.i18n.getMessage("new_category_label")
+      : `"${selectedCategory}"`;
 
-  const savePrompt = document.getElementById("save-prompt");
   const saveMessage = document.getElementById("save-message");
 
-  saveMessage.textContent = `💾 Do you want to save this tab to ${categoryLabel}?`;
+  saveMessage.textContent = `💾 ${chrome.i18n.getMessage(
+    "save_prompt_to"
+  )} ${categoryLabel}?`;
 
   // Smooth fade-in
+  const savePrompt = document.getElementById("save-prompt");
+
   savePrompt.style.display = "block";
   savePrompt.classList.remove("fade-out");
   savePrompt.classList.add("fadeIn");
@@ -203,11 +214,13 @@ deleteCategoryBtn.addEventListener("click", () => {
     selectedCat === "__new__" ||
     !categories.includes(selectedCat)
   ) {
-    alert("Please select a valid category to delete.");
+    alert(chrome.i18n.getMessage("alert_invalid_category"));
     return;
   }
 
-  const confirmed = confirm(`Delete "${selectedCat}" and all its saved items?`);
+  const confirmed = confirm(
+    chrome.i18n.getMessage("confirm_delete_category", [selectedCat])
+  );
   if (confirmed) {
     categories = categories.filter((cat) => cat !== selectedCat);
     myLeads = myLeads.filter((lead) => lead.category !== selectedCat);

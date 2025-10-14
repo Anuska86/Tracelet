@@ -1,0 +1,36 @@
+{
+  "extension_name": { "message": "Tracelet" },
+  "extension_description": {
+    "message": "Save tabs with style. Emoji-powered categories, cinematic feedback, and intentional UX for the modern web explorer."
+  },
+  "extension_title": { "message": "Open Tracelet" },
+  "description_placeholder": {
+    "message": "Add a short description (optional)"
+  },
+  "add_new_category": { "message": "Add new category" },
+  "new_category_placeholder": { "message": "Name your new category" },
+  "pick_emoji": { "message": "Pick an emoji for your category" },
+  "add_category": { "message": "Add Category" },
+  "delete_category": { "message": "Delete Category" },
+  "save_tab": { "message": "Save Tab" },
+  "save_prompt": { "message": "Do you want to save this tab?" },
+  "confirm_save": { "message": "Confirm Save" },
+  "clear_all": { "message": "Clear all" },
+  "view_all_tabs": { "message": "View All Your Tabs" },
+  "mark_favorite": { "message": "★ Mark as Favorite" },
+  "favorites_header": { "message": "Favorites Tabs" },
+  "no_tabs": { "message": "No tabs saved yet." },
+  "search_placeholder": { "message": "🔍 Search tabs by keyword or category" },
+  "viewer_header": { "message": "All Saved Tabs" },
+  "emoji_default": { "message": "📌 Default" },
+  "emoji_videos": { "message": "🎬 Videos" },
+  "emoji_articles": { "message": "📰 Articles" },
+  "emoji_books": { "message": "📚 Books" },
+  "emoji_computing": { "message": "💻 Computing" },
+  "emoji_science": { "message": "🔬 Science" },
+  "emoji_space": { "message": "🚀 Space" },
+  "emoji_animals": { "message": "🐱 Animals" },
+  "emoji_travel": { "message": "✈️ Travel" },
+  "emoji_ai": { "message": "🤖 AI" },
+  "emoji_music": { "message": "🎵 Music" }
+}
