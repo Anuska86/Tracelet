@@ -84,10 +84,23 @@ export async function renderLeads(leads, container) {
   <a target="_blank" href="${lead.url}">${label}</a>
   <span class="timestamp">${lead.timestamp}</span>
   <div class="tab-actions">
-    <button class="favorite-toggle" data-url="${lead.url}">
-      ${lead.isFavorite ? "⭐" : "☆"}
-    </button>
-    <button class="delete-btn" data-url="${lead.url}">🗑️</button>
+   <button
+  class="favorite-toggle"
+  data-url="${lead.url}"
+  title="${
+    lead.isFavorite
+      ? chrome.i18n.getMessage("tooltip_unfavorite")
+      : chrome.i18n.getMessage("tooltip_favorite")
+  }">
+  ${lead.isFavorite ? "⭐" : "☆"}
+</button>
+
+<button
+  class="delete-btn"
+  data-url="${lead.url}"
+  title="${chrome.i18n.getMessage("tooltip_delete")}">
+  🗑️
+</button>
   </div>
 </li>`;
     });

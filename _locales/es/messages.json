@@ -59,5 +59,14 @@
   },
   "confirm_delete_tab": {
     "message": "🗑️ ¿Estás segura de que quieres borrar esta pestaña?"
+  },
+  "tooltip_favorite": {
+    "message": "Haz clic para añadir a favoritos"
+  },
+  "tooltip_unfavorite": {
+    "message": "Haz clic para quitar de favoritos"
+  },
+  "tooltip_delete": {
+    "message": "Haz clic para borrar esta pestaña"
   }
 }

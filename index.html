@@ -13,8 +13,11 @@
     />
 
     <select id="category-el">
+      <option value="Books">
+        <span i18n-content="category_books">Books</span>
+      </option>
       <option value="Profiles" i18n-content="category_profiles">
-        Profiles
+        Work Profiles
       </option>
       <option value="Videos">
         <span i18n-content="category_videos">Videos</span>
@@ -22,9 +25,7 @@
       <option value="Articles">
         <span i18n-content="category_articles">Articles</span>
       </option>
-      <option value="Books">
-        <span i18n-content="category_books">Books</span>
-      </option>
+
       <option value="__new__">
         ➕ <span i18n-content="add_new_category">Add new category</span>
       </option>
@@ -73,8 +74,6 @@
       Delete Category
     </button>
 
-    <button id="tab-btn" i18n-content="save_tab">Save Tab</button>
-
     <div id="save-prompt" style="display: none; margin-top: 10px">
       <p id="save-message" i18n-content="save_prompt">
         Do you want to save this tab?
@@ -89,10 +88,13 @@
       Confirm Save
     </button>
 
-    <button id="clear-btn" i18n-content="clear_all">Clear all</button>
-    <button id="view-all-btn" i18n-content="view_all_tabs">
-      View All Your Tabs
-    </button>
+    <div class="button-group">
+      <button id="tab-btn" i18n-content="save_tab">Save Tab</button>
+      <button id="clear-btn" i18n-content="clear_all">Clear all</button>
+      <button id="view-all-btn" i18n-content="view_all_tabs">
+        View All Your Tabs
+      </button>
+    </div>
 
     <div class="favorite-toggle-container" style="display: none">
       <label class="favorite-label">

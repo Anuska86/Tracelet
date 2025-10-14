@@ -52,5 +52,14 @@
   },
   "confirm_delete_tab": {
     "message": "🗑️ Are you sure you want to delete this tab?"
+  },
+  "tooltip_favorite": {
+    "message": "Click to add to favorites"
+  },
+  "tooltip_unfavorite": {
+    "message": "Click to remove from favorites"
+  },
+  "tooltip_delete": {
+    "message": "Click to delete this tab"
   }
 }

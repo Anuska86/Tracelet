@@ -105,6 +105,14 @@ button:disabled {
   color: #f00;
 }
 
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
 /*List*/
 ul {
   color: #3fa7a7;
