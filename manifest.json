@@ -8,21 +8,11 @@
     "default_icon": "assets/bookmark-icon.png",
     "default_title": "__MSG_extension_title__"
   },
-  "permissions": ["storage", "tabs"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": ["storage", "tabs", "activeTab"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "viewer/viewer.html",
-        "viewer/viewer.js",
-        "styles/viewer.css"
-      ],
-      "matches": ["<all_urls>"]
-    }
-  ],
+
   "background": {
     "service_worker": "scripts/background.js"
   },

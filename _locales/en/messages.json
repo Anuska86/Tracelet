@@ -13,6 +13,9 @@
   "add_category": { "message": "Add Category" },
   "delete_category": { "message": "Delete Category" },
   "save_tab": { "message": "Save Tab" },
+  "save_prompt_to": {
+    "message": "Do you want to save this tab to"
+  },
   "save_prompt": { "message": "Do you want to save this tab?" },
   "confirm_save": { "message": "Confirm Save" },
   "clear_all": { "message": "Clear all" },

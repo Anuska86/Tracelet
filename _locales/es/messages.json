@@ -14,6 +14,9 @@
   "delete_category": { "message": "Eliminar categoría" },
   "save_tab": { "message": "Guardar pestaña" },
   "save_prompt": { "message": "¿Quieres guardar esta pestaña?" },
+  "save_prompt_to": {
+    "message": "¿Quieres guardar esta pestaña en"
+  },
   "confirm_save": { "message": "Confirmar guardado" },
   "clear_all": { "message": "Borrar todo" },
   "view_all_tabs": { "message": "Ver todas tus pestañas" },

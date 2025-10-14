@@ -79,9 +79,10 @@ tabBtn.addEventListener("click", () => {
 
   const saveMessage = document.getElementById("save-message");
 
-  saveMessage.textContent = `💾 ${chrome.i18n.getMessage(
-    "save_prompt_to"
-  )} ${categoryLabel}?`;
+  const savePromptText =
+    chrome.i18n.getMessage("save_prompt_to") ||
+    "Do you want to save this tab to";
+  saveMessage.textContent = `💾 ${savePromptText} ${categoryLabel}?`;
 
   // Smooth fade-in
   const savePrompt = document.getElementById("save-prompt");
