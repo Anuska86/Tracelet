@@ -7,6 +7,9 @@
   border: 1px solid #3fa7a7;
   border-radius: 4px;
   font-weight: bold;
+  background-image: linear-gradient(to right, #1f4d4d, #123636);
+  font-size: 1em;
+  letter-spacing: 0.5px;
 }
 
 #category-el option[value="__delete__"] {

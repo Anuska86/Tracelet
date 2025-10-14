@@ -23,6 +23,17 @@ input {
   margin-bottom: 5px;
 }
 
+input[type="text"] {
+  border-radius: 6px;
+  font-size: 1em;
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 8px #3fa7a7;
+}
+
 select {
   width: 100%;
   padding: 10px;
@@ -35,6 +46,18 @@ select {
 }
 
 /*Text*/
+h2#favorites-tabs {
+  font-size: 1.4em;
+  color: #f4c542;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: 2px solid #3fa7a7;
+  padding-bottom: 6px;
+  letter-spacing: 1px;
+}
+
 h3 {
   margin-top: 3px;
   font-size: 1.2em;
@@ -56,10 +79,13 @@ button {
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
   box-shadow: 0 0 8px #f4c542;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #f4c542;
 }
 
 button:disabled {
@@ -113,15 +139,45 @@ a {
 
 #confirm-save-btn {
   margin-top: 8px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.6s ease;
+}
+
+#confirm-save-btn.hide {
   opacity: 0;
 }
+
 #confirm-save-btn.show {
   opacity: 1;
 }
 
+.confirmed-glow {
+  animation: glowPulse 1.2s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.4s ease;
+  transform: scale(0.95);
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0px #f4c542;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 12px #f4c542;
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0px #f4c542;
+    transform: scale(1);
+  }
+}
+
 .saved {
-  animation: pulse 0.3s ease-in-out;
+  animation: pulse 1s ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 @keyframes pulse {
@@ -135,7 +191,36 @@ a {
     box-shadow: 0 0 0px #f4c542;
   }
 }
+#save-prompt {
+  animation: fadeIn 0.4s ease-out;
+}
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-entry.saved {
+  animation: glow 0.6s ease-in-out;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 0px #f4c542;
+  }
+  50% {
+    box-shadow: 0 0 12px #f4c542;
+  }
+  100% {
+    box-shadow: 0 0 0px #f4c542;
+  }
+}
 /*Emojis*/
 
 #emoji-suggestions {
@@ -145,6 +230,18 @@ a {
   background-color: #1e1e1e;
   color: #f1f1f1;
   border: 1px solid #555;
+}
+
+#emoji-picker {
+  font-size: 1.4em;
+  background-color: #142828;
+  border-radius: 6px;
+  border: 2px solid #3fa7a7;
+  transition: box-shadow 0.3s ease;
+}
+
+#emoji-picker:focus {
+  box-shadow: 0 0 6px #3fa7a7;
 }
 
 /*Categories*/

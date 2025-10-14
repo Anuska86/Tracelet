@@ -68,7 +68,11 @@ tabBtn.addEventListener("click", () => {
   const saveMessage = document.getElementById("save-message");
 
   saveMessage.textContent = `💾 Do you want to save this tab to ${categoryLabel}?`;
+
+  // Smooth fade-in
   savePrompt.style.display = "block";
+  savePrompt.classList.remove("fade-out");
+  savePrompt.classList.add("fadeIn");
 
   favoriteContainer.style.display = "block";
   confirmSaveBtn.style.display = "inline-block";
@@ -99,16 +103,33 @@ confirmSaveBtn.addEventListener("click", () => {
       payload: { url, category, description, timestamp, isFavorite },
     });
 
+    // Reset inputs
     inputEl.value = "";
     document.getElementById("favorite-checkbox").checked = false;
     favoriteContainer.style.display = "none";
-    confirmSaveBtn.style.display = "none";
 
+    // Animate confirm button
+    confirmSaveBtn.classList.add("confirmed-glow");
+
+    // Fade out save prompt
+    const savePrompt = document.getElementById("save-prompt");
+    savePrompt.classList.remove("fadeIn");
+    savePrompt.classList.add("fade-out");
+
+    // Button pulse
     tabBtn.classList.add("saved");
-    setTimeout(() => tabBtn.classList.remove("saved"), 300);
-  });
 
-  document.getElementById("save-prompt").style.display = "none";
+    // Clean up after animation
+    setTimeout(() => {
+      confirmSaveBtn.classList.remove("confirmed-glow");
+      confirmSaveBtn.classList.remove("show");
+      confirmSaveBtn.style.display = "none";
+
+      tabBtn.classList.remove("saved");
+      savePrompt.style.display = "none";
+      savePrompt.classList.remove("fade-out");
+    }, 1400); // Matches glowPulse duration
+  });
 });
 
 // Clear all saved tabs and categories
