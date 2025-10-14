@@ -34,5 +34,30 @@
   "emoji_animals": { "message": "🐱 Animales" },
   "emoji_travel": { "message": "✈️ Viajes" },
   "emoji_ai": { "message": "🤖 IA" },
-  "emoji_music": { "message": "🎵 Música" }
+  "emoji_music": { "message": "🎵 Música" },
+  "category_profiles": { "message": "Perfiles" },
+  "category_videos": { "message": "Vídeos" },
+  "category_articles": { "message": "Artículos" },
+  "category_books": { "message": "Libros" },
+  "category_music": { "message": "Música" },
+  "category_quantum": { "message": "Cuántica" },
+  "category_english": { "message": "Inglés" },
+  "category_travel": { "message": "Viajes" },
+  "category_animals": { "message": "Animales" },
+  "category_computing": {
+    "message": "Programación"
+  },
+  "category_science": { "message": "Ciencia" },
+  "category_ai": { "message": "IA" },
+  "category_space": { "message": "Espacio" },
+  "category_uncategorized": { "message": "Sin categoría" },
+  "no_matching_tabs": {
+    "message": "No se encontraron pestañas con ese nombre."
+  },
+  "no_favorites_yet": {
+    "message": "Aún no hay pestañas favoritas. ¡Elige una para que aparezca aquí!"
+  },
+  "confirm_delete_tab": {
+    "message": "🗑️ ¿Estás segura de que quieres borrar esta pestaña?"
+  }
 }

@@ -13,14 +13,35 @@ const categoryEmojis = {
   Science: "🔬",
   AI: "🤖",
   Space: "🚀",
+  Computing: "💻",
   Uncategorized: "📌",
+};
+
+const knownKeys = {
+  Profiles: "category_profiles",
+  Videos: "category_videos",
+  Articles: "category_articles",
+  Books: "category_books",
+  Music: "category_music",
+  Quantum: "category_quantum",
+  English: "category_english",
+  Travel: "category_travel",
+  Animals: "category_animals",
+  Science: "category_science",
+  AI: "category_ai",
+  Space: "category_space",
+  Computing: "category_computing",
+  Uncategorized: "category_uncategorized",
 };
 
 export async function renderLeads(leads, container) {
   container.innerHTML = "";
 
   if (!leads || leads.length === 0) {
-    container.innerHTML = "<p>No matching tabs found.</p>";
+    container.innerHTML = `<p>${chrome.i18n.getMessage(
+      "no_matching_tabs"
+    )}</p>`;
+
     return;
   }
 
@@ -32,8 +53,9 @@ export async function renderLeads(leads, container) {
   }, {});
 
   if (Object.keys(grouped).length === 0) {
-    container.innerHTML =
-      "<p>No favorite tabs yet. Mark one to feature it here!</p>";
+    container.innerHTML = `<p>${chrome.i18n.getMessage(
+      "no_favorites_yet"
+    )}</p>`;
     return;
   }
 
@@ -42,7 +64,12 @@ export async function renderLeads(leads, container) {
       localStorage.getItem(`emoji-${category}`) ||
       categoryEmojis[category] ||
       "📌";
-    container.innerHTML += `<h3>${emoji} ${category}</h3><ul>`;
+
+    const label = knownKeys[category]
+      ? chrome.i18n.getMessage(knownKeys[category])
+      : category;
+
+    container.innerHTML += `<h3>${emoji} ${label}</h3><ul>`;
 
     grouped[category].forEach((lead) => {
       const emoji =
@@ -72,7 +99,7 @@ export async function renderLeads(leads, container) {
   deleteButtons.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       const urlToDelete = e.target.dataset.url;
-      const confirmed = confirm("🗑️ Are you sure you want to delete this tab?");
+      const confirmed = confirm(chrome.i18n.getMessage("confirm_delete_tab"));
       if (!confirmed) return;
 
       const allLeads = await getLeads();
@@ -104,14 +131,18 @@ export function renderCategoryOptions(categories, selectEl) {
   categories.forEach((cat) => {
     const option = document.createElement("option");
     option.value = cat;
-    option.textContent = `${
-      localStorage.getItem(`emoji-${cat}`) || categoryEmojis[cat] || "📌"
-    } ${cat}`;
+
+    const emoji =
+      localStorage.getItem(`emoji-${cat}`) || categoryEmojis[cat] || "📌";
+    const i18nKey = knownKeys[cat];
+    const label = i18nKey ? chrome.i18n.getMessage(i18nKey) : cat;
+
+    option.textContent = `${emoji} ${label}`;
     selectEl.appendChild(option);
   });
 
   const addNewOption = document.createElement("option");
   addNewOption.value = "__new__";
-  addNewOption.textContent = "➕ Add new category";
+  addNewOption.textContent = `➕ ${chrome.i18n.getMessage("add_new_category")}`;
   selectEl.appendChild(addNewOption);
 }

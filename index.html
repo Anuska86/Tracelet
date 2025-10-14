@@ -9,14 +9,22 @@
     <input
       type="text"
       id="input-el"
-      placeholder="Add a short description (optional)"
+      i18n-placeholder="description_placeholder"
     />
 
     <select id="category-el">
-      <option value="Profiles">Profiles</option>
-      <option value="Videos">Videos</option>
-      <option value="Articles">Articles</option>
-      <option value="Books">Books</option>
+      <option value="Profiles" i18n-content="category_profiles">
+        Profiles
+      </option>
+      <option value="Videos">
+        <span i18n-content="category_videos">Videos</span>
+      </option>
+      <option value="Articles">
+        <span i18n-content="category_articles">Articles</span>
+      </option>
+      <option value="Books">
+        <span i18n-content="category_books">Books</span>
+      </option>
       <option value="__new__">
         ➕ <span i18n-content="add_new_category">Add new category</span>
       </option>
@@ -25,8 +33,7 @@
     <input
       type="text"
       id="new-category-el"
-      placeholder="Name your new category"
-      style="display: none"
+      i18n-placeholder="new_category_placeholder"
     />
 
     <input

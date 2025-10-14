@@ -32,5 +32,25 @@
   "emoji_animals": { "message": "🐱 Animals" },
   "emoji_travel": { "message": "✈️ Travel" },
   "emoji_ai": { "message": "🤖 AI" },
-  "emoji_music": { "message": "🎵 Music" }
+  "emoji_music": { "message": "🎵 Music" },
+  "category_profiles": { "message": "Profiles" },
+  "category_videos": { "message": "Videos" },
+  "category_articles": { "message": "Articles" },
+  "category_books": { "message": "Books" },
+  "category_music": { "message": "Music" },
+  "category_quantum": { "message": "Quantum" },
+  "category_english": { "message": "English" },
+  "category_travel": { "message": "Travel" },
+  "category_animals": { "message": "Animals" },
+  "category_science": { "message": "Science" },
+  "category_ai": { "message": "AI" },
+  "category_space": { "message": "Space" },
+  "category_uncategorized": { "message": "Uncategorized" },
+  "no_matching_tabs": { "message": "No matching tabs found." },
+  "no_favorites_yet": {
+    "message": "No favorite tabs yet. Mark one to feature it here!"
+  },
+  "confirm_delete_tab": {
+    "message": "🗑️ Are you sure you want to delete this tab?"
+  }
 }

@@ -42,10 +42,12 @@ console.log("chrome.tabs:", chrome.tabs);
 // Initial render
 renderCategoryOptions(categories, categoryEl);
 categoryEl.value = categories.length > 0 ? categories[0] : "";
-categoryEl.dispatchEvent(new Event("change"));
+newCategoryEl.style.display = "none";
+addCategoryBtn.style.display = "none";
+emojiPicker.style.display = "none";
+emojiSuggestions.style.display = "none";
 emojiLabel.style.display = "none";
-deleteCategoryBtn.style.display =
-  categories.length > 0 ? "inline-block" : "none";
+deleteCategoryBtn.style.display = "none";
 
 //renderLeads(myLeads, ulEl);
 
@@ -150,6 +152,9 @@ clearBtn.addEventListener("click", () => {
     renderCategoryOptions([], categoryEl);
 
     categoryEl.value = "";
+    newCategoryEl.value = "";
+    emojiPicker.value = "";
+    emojiSuggestions.value = "📌";
     categoryEl.dispatchEvent(new Event("change"));
   });
   myLeads = [];
@@ -202,6 +207,9 @@ categoryEl.addEventListener("change", () => {
 
   // Show/hide delete button
   deleteCategoryBtn.style.display = isValidCategory ? "inline-block" : "none";
+
+  categoryEl.classList.add("fade-in");
+  setTimeout(() => categoryEl.classList.remove("fade-in"), 300);
 });
 
 //Delete category
