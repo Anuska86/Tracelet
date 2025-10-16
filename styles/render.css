@@ -4,6 +4,14 @@
   box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
+.category-editor {
+  margin-top: 4px;
+  font-size: 14px;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
 /*TABS*/
 
 .tab-entry {

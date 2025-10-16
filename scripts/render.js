@@ -93,28 +93,49 @@ export async function renderLeads(leads, container) {
       const label = `${emoji} ${lead.description || lead.url}`;
       const color = localStorage.getItem(`color-${lead.category}`) || "#7f8c8d";
 
+      const categorySelect = document.createElement("select");
+      categorySelect.className = "category-editor";
+      categorySelect.dataset.url = lead.url;
+
+      const allCategories = Object.keys(categoryEmojis);
+      allCategories.forEach((cat) => {
+        const option = document.createElement("option");
+        option.value = cat;
+        const emoji =
+          localStorage.getItem(`emoji-${cat}`) || categoryEmojis[cat] || "📌";
+        const label = knownKeys[cat]
+          ? chrome.i18n.getMessage(knownKeys[cat])
+          : cat;
+        option.textContent = `${emoji} ${label}`;
+        if (cat === lead.category) option.selected = true;
+        categorySelect.appendChild(option);
+      });
+
+      categorySelect.addEventListener("change", async (e) => {
+        const newCategory = e.target.value;
+        const tabUrl = e.target.dataset.url;
+        const allLeads = await getLeads();
+        const updatedLeads = allLeads.map((l) =>
+          l.url === tabUrl ? { ...l, category: newCategory } : l
+        );
+        await saveLeads(updatedLeads);
+        renderLeads(updatedLeads, container);
+      });
+
       container.innerHTML += `
 <li class="tab-entry" data-category="${lead.category}">
   <a target="_blank" href="${lead.url}">${label}</a>
   <span class="timestamp">${lead.timestamp}</span>
+  ${categorySelect.outerHTML}
   <div class="tab-actions">
-   <button
-  class="favorite-toggle"
-  data-url="${lead.url}"
-  title="${
-    lead.isFavorite
-      ? chrome.i18n.getMessage("tooltip_unfavorite")
-      : chrome.i18n.getMessage("tooltip_favorite")
-  }">
-  ${lead.isFavorite ? "⭐" : "☆"}
-</button>
-
-<button
-  class="delete-btn"
-  data-url="${lead.url}"
-  title="${chrome.i18n.getMessage("tooltip_delete")}">
-  🗑️
-</button>
+    <button class="favorite-toggle" data-url="${lead.url}" title="${
+        lead.isFavorite
+          ? chrome.i18n.getMessage("tooltip_unfavorite")
+          : chrome.i18n.getMessage("tooltip_favorite")
+      }">${lead.isFavorite ? "⭐" : "☆"}</button>
+    <button class="delete-btn" data-url="${
+      lead.url
+    }" title="${chrome.i18n.getMessage("tooltip_delete")}">🗑️</button>
   </div>
 </li>`;
     });
