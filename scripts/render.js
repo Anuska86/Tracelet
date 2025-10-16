@@ -14,6 +14,12 @@ const categoryEmojis = {
   AI: "🤖",
   Space: "🚀",
   Computing: "💻",
+  Art: "🎨",
+  Photography: "📸",
+  Shopping: "🛍️",
+  Games: "🎮",
+  Sports: "🏋️",
+  Shows: "📺",
   Uncategorized: "📌",
 };
 
@@ -31,6 +37,12 @@ const knownKeys = {
   AI: "category_ai",
   Space: "category_space",
   Computing: "category_computing",
+  Art: "category_art",
+  Photography: "category_photography",
+  Shopping: "category_shopping",
+  Games: "category_games",
+  Sports: "category_sports",
+  Shows: "category_shows",
   Uncategorized: "category_uncategorized",
 };
 

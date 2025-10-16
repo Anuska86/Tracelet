@@ -38,6 +38,13 @@
   "emoji_travel": { "message": "✈️ Viajes" },
   "emoji_ai": { "message": "🤖 IA" },
   "emoji_music": { "message": "🎵 Música" },
+  "emoji_art": { "message": "🎨 Arte" },
+  "emoji_photography": { "message": "📸 Fotografía" },
+  "emoji_shopping": { "message": "🛍️ Compras" },
+  "emoji_games": { "message": "🎮 Juegos" },
+  "emoji_sports": { "message": "🏋️ Deportes" },
+  "emoji_shows": { "message": "📺 Series" },
+
   "category_profiles": { "message": "Perfiles" },
   "category_videos": { "message": "Vídeos" },
   "category_articles": { "message": "Artículos" },
@@ -50,6 +57,13 @@
   "category_computing": {
     "message": "Programación"
   },
+  "category_art": { "message": "Arte" },
+  "category_photography": { "message": "Fotografía" },
+  "category_shopping": { "message": "Compras" },
+  "category_games": { "message": "Juegos" },
+  "category_sports": { "message": "Deportes" },
+  "category_shows": { "message": "Series" },
+
   "category_science": { "message": "Ciencia" },
   "category_ai": { "message": "IA" },
   "category_space": { "message": "Espacio" },
