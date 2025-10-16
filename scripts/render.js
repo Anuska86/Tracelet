@@ -65,9 +65,11 @@ export async function renderLeads(leads, container) {
       categoryEmojis[category] ||
       "📌";
 
-    const label = knownKeys[category]
+    const i18nLabel = knownKeys[category]
       ? chrome.i18n.getMessage(knownKeys[category])
-      : category;
+      : null;
+
+    const label = i18nLabel && i18nLabel.trim() !== "" ? i18nLabel : category;
 
     container.innerHTML += `<h3>${emoji} ${label}</h3><ul>`;
 

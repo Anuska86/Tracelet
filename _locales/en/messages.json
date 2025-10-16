@@ -45,6 +45,9 @@
   "category_english": { "message": "English" },
   "category_travel": { "message": "Travel" },
   "category_animals": { "message": "Animals" },
+  "category_computing": {
+    "message": "Computing"
+  },
   "category_science": { "message": "Science" },
   "category_ai": { "message": "AI" },
   "category_space": { "message": "Space" },
