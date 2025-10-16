@@ -67,5 +67,8 @@
   },
   "tooltip_delete": {
     "message": "Click to delete this tab"
+  },
+  "confirm_delete_category": {
+    "message": "🗑️ Are you sure you want to delete the category \"$1\"?"
   }
 }

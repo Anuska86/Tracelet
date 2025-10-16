@@ -71,5 +71,8 @@
   },
   "tooltip_delete": {
     "message": "Haz clic para borrar esta pestaña"
+  },
+  "confirm_delete_category": {
+    "message": "🗑️ ¿Seguro que quieres eliminar la categoría \"$1\"?"
   }
 }
