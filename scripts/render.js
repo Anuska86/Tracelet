@@ -20,6 +20,9 @@ const categoryEmojis = {
   Games: "🎮",
   Sports: "🏋️",
   Shows: "📺",
+  Health: "🩺",
+  Pharmacy: "💊",
+  Investigation: "🕵️",
   Uncategorized: "📌",
 };
 
@@ -43,6 +46,9 @@ const knownKeys = {
   Games: "category_games",
   Sports: "category_sports",
   Shows: "category_shows",
+  Health: "category_health",
+  Pharmacy: "category_pharmacy",
+  Investigation: "category_investigation",
   Uncategorized: "category_uncategorized",
 };
 

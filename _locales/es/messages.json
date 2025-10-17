@@ -44,6 +44,9 @@
   "emoji_games": { "message": "🎮 Juegos" },
   "emoji_sports": { "message": "🏋️ Deportes" },
   "emoji_shows": { "message": "📺 Series" },
+  "emoji_health": { "message": "🩺 Salud" },
+  "emoji_pharmacy": { "message": "💊 Farmacia" },
+  "emoji_investigation": { "message": "🕵️ Investigación" },
 
   "category_profiles": { "message": "Perfiles" },
   "category_videos": { "message": "Vídeos" },
@@ -67,6 +70,9 @@
   "category_science": { "message": "Ciencia" },
   "category_ai": { "message": "IA" },
   "category_space": { "message": "Espacio" },
+  "category_health": { "message": "Salud" },
+  "category_pharmacy": { "message": "Farmacia" },
+  "category_investigation": { "message": "Investigación" },
   "category_uncategorized": { "message": "Sin categoría" },
   "no_matching_tabs": {
     "message": "No se encontraron pestañas con ese nombre."

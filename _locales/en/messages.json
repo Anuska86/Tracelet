@@ -42,6 +42,10 @@
   "emoji_sports": { "message": "🏋️ Sports" },
   "emoji_shows": { "message": "📺 Shows" },
   "emoji_music": { "message": "🎵 Music" },
+  "emoji_health": { "message": "🩺 Health" },
+  "emoji_pharmacy": { "message": "💊 Pharmacy" },
+  "emoji_investigation": { "message": "🕵️ Investigation" },
+
   "category_profiles": { "message": "Profiles" },
   "category_videos": { "message": "Videos" },
   "category_articles": { "message": "Articles" },
@@ -63,6 +67,9 @@
   "category_games": { "message": "Games" },
   "category_sports": { "message": "Sports" },
   "category_shows": { "message": "Shows" },
+  "category_health": { "message": "Health" },
+  "category_pharmacy": { "message": "Pharmacy" },
+  "category_investigation": { "message": "Investigation" },
 
   "category_uncategorized": { "message": "Uncategorized" },
   "no_matching_tabs": { "message": "No matching tabs found." },
