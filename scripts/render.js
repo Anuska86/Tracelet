@@ -1,6 +1,6 @@
 import { getLeads, saveLeads } from "./storage.js";
 
-const categoryEmojis = {
+export const categoryEmojis = {
   Profiles: "👤",
   Videos: "🎬",
   Articles: "📰",

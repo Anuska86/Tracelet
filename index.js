@@ -1,4 +1,8 @@
-import { renderLeads, renderCategoryOptions } from "./scripts/render.js";
+import {
+  renderLeads,
+  renderCategoryOptions,
+  categoryEmojis,
+} from "./scripts/render.js";
 import {
   getLeads,
   saveLeads,
@@ -34,6 +38,24 @@ const timestamp = new Date().toLocaleString(navigator.language);
 const emojiPicker = document.getElementById("emoji-picker");
 const emojiSuggestions = document.getElementById("emoji-suggestions");
 
+function populateEmojiSuggestions() {
+  emojiSuggestions.innerHTML = "";
+
+  const uniqueEmojis = new Set(Object.values(categoryEmojis));
+  [...uniqueEmojis].sort().forEach((emoji) => {
+    const option = document.createElement("option");
+    option.value = emoji;
+    option.textContent = emoji;
+    emojiSuggestions.appendChild(option);
+  });
+
+  // Optional: add a default 📌 at the top
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "📌";
+  defaultOption.textContent = "📌";
+  emojiSuggestions.insertBefore(defaultOption, emojiSuggestions.firstChild);
+}
+
 emojiSuggestions.addEventListener("change", (e) => {
   emojiPicker.value = e.target.value;
 });
@@ -43,7 +65,9 @@ newCategoryEl.placeholder = chrome.i18n.getMessage("new_category_placeholder");
 emojiPicker.placeholder = chrome.i18n.getMessage("emoji_placeholder");
 
 // Initial render
-renderCategoryOptions(categories, categoryEl);
+renderCategoryOptions(Object.keys(categoryEmojis), categoryEl);
+populateEmojiSuggestions();
+
 categoryEl.value = categories.length > 0 ? categories[0] : "";
 newCategoryEl.style.display = "none";
 addCategoryBtn.style.display = "none";
