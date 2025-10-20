@@ -113,14 +113,12 @@ button:disabled {
   flex-wrap: wrap;
 }
 
-
-#view-more-favorites-btn{
-display: block;
-margin: 20px auto;
-padding: 8px 16px;
-font-size: 14px;
-border-radius: 6px;
-
+#view-more-favorites-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
 }
 
 /*List*/
@@ -248,15 +246,22 @@ a {
 #emoji-suggestions {
   font-size: 16px;
   padding: 4px;
-  border-radius: 4px;
-  background-color: #1e1e1e;
-  color: #f1f1f1;
+  width: 80px;
+  font-size: 18px;
+  text-align: center;
+  background-color: #2c2c2c;
   border: 1px solid #555;
+  border-radius: 6px;
+  color: #fff;
+}
+
+#emoji-suggestions option {
+  text-align: center;
 }
 
 #emoji-picker {
   font-size: 1.4em;
-  background-color: #142828;
+  background-color: #2c2c2c;
   border-radius: 6px;
   border: 2px solid #3fa7a7;
   transition: box-shadow 0.3s ease;
