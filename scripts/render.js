@@ -182,6 +182,12 @@ export async function renderLeads(leads, container) {
 export function renderCategoryOptions(categories, selectEl) {
   selectEl.innerHTML = "";
 
+  // Add "Add new category" at the top
+  const addNewOption = document.createElement("option");
+  addNewOption.value = "__new__";
+  addNewOption.textContent = `➕ ${chrome.i18n.getMessage("add_new_category")}`;
+  selectEl.appendChild(addNewOption);
+
   categories.forEach((cat) => {
     const option = document.createElement("option");
     option.value = cat;
@@ -194,9 +200,4 @@ export function renderCategoryOptions(categories, selectEl) {
     option.textContent = `${emoji} ${label}`;
     selectEl.appendChild(option);
   });
-
-  const addNewOption = document.createElement("option");
-  addNewOption.value = "__new__";
-  addNewOption.textContent = `➕ ${chrome.i18n.getMessage("add_new_category")}`;
-  selectEl.appendChild(addNewOption);
 }
