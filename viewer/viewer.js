@@ -17,7 +17,7 @@ getLeads().then((leads) => {
       ? allLeads.filter((lead) => lead.isFavorite)
       : allLeads;
 
-  renderLeads(leadsToRender, container);
+  renderLeads(leadsToRender, container, "readonly");
 });
 
 // Live search
@@ -35,7 +35,7 @@ searchInput.addEventListener("input", () => {
       ? filtered.filter((lead) => lead.isFavorite)
       : filtered;
 
-  renderLeads(leadsToRender, container);
+  renderLeads(leadsToRender, container, "readonly");
 });
 
 //Back to All tabs

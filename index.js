@@ -81,7 +81,7 @@ deleteCategoryBtn.style.display = "none";
 getLeads().then((leads) => {
   myLeads = Array.isArray(leads) ? leads : [];
   const favoriteLeads = myLeads.filter((lead) => lead.isFavorite);
-  renderLeads(favoriteLeads, ulEl);
+  renderLeads(favoriteLeads, ulEl, "readonly");
 });
 
 // View All Tabs → open viewer.html in new tab
