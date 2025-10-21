@@ -266,6 +266,10 @@ deleteCategoryBtn.addEventListener("click", () => {
 
     renderCategoryOptions(categories, categoryEl);
     categoryEl.value = categories.length > 0 ? categories[0] : "";
+
+    const favoriteLeads = myLeads.filter((lead) => lead.isFavorite);
+    renderLeads(favoriteLeads, ulEl, "readonly");
+
     categoryEl.dispatchEvent(new Event("change"));
   }
 });

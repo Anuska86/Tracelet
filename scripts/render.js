@@ -59,7 +59,6 @@ export async function renderLeads(leads, container, mode = "editable") {
     container.innerHTML = `<p>${chrome.i18n.getMessage(
       "no_matching_tabs"
     )}</p>`;
-
     return;
   }
 
@@ -90,90 +89,78 @@ export async function renderLeads(leads, container, mode = "editable") {
     const label = i18nLabel && i18nLabel.trim() !== "" ? i18nLabel : category;
 
     container.innerHTML += `<h3>${emoji} ${label}</h3><ul>`;
-    const ul = container.querySelectorAll("ul")[container.querySelectorAll("ul").length - 1];
+    const ul =
+      container.querySelectorAll("ul")[
+        container.querySelectorAll("ul").length - 1
+      ];
 
+    grouped[category].forEach((lead) => {
+      const emoji =
+        localStorage.getItem(`emoji-${lead.category}`) ||
+        categoryEmojis[lead.category] ||
+        "📌";
+      const categoryI18nLabel = knownKeys[lead.category]
+        ? chrome.i18n.getMessage(knownKeys[lead.category])
+        : lead.category;
+      const urlLabel = `${emoji} ${lead.description || lead.url}`;
+      const color = localStorage.getItem(`color-${lead.category}`) || "#7f8c8d";
 
-grouped[category].forEach((lead) => {
-  const emoji = localStorage.getItem(`emoji-${lead.category}`) || categoryEmojis[lead.category] || "📌";
-  const label = `${emoji} ${lead.description || lead.url}`;
-  const color = localStorage.getItem(`color-${lead.category}`) || "#7f8c8d";
+      let categoryDisplay = "";
+      let editButton = "";
+      if (mode === "readonly") {
+        // Readonly mode (used in popup)
+        categoryDisplay = `<span class="category-label" style="border-left-color: ${color};">${emoji} ${categoryI18nLabel}</span>`;
+      } else {
+        // Editable mode (used in viewer.html)
+        // 1. Display the category as a fixed label
+        categoryDisplay = `<span class="category-label fixed-category-label" style="border-left-color: ${color};" data-url="${lead.url}">${emoji} ${categoryI18nLabel}</span>`; // 2. Create the Edit Button
 
-  let categoryDisplay = "";
-  if (mode === "readonly") {
-    const i18nLabel = knownKeys[lead.category]
-      ? chrome.i18n.getMessage(knownKeys[lead.category])
-      : lead.category;
-    categoryDisplay = `<span class="category-label">${emoji} ${i18nLabel}</span>`;
-  } else {
-    const categorySelect = document.createElement("select");
-    categorySelect.className = "category-editor";
-    categorySelect.dataset.url = lead.url;
+        editButton = `<button class="edit-category-btn" data-url="${
+          lead.url
+        }" title="${chrome.i18n.getMessage(
+          "tooltip_edit_category"
+        )}">✏️</button>`; // The dropdown <select> will be created and shown/hidden dynamically upon clicking the edit button. // We also need a hidden dropdown element to show when editing
 
-    const allCategories = Object.keys(categoryEmojis);
-    allCategories.forEach((cat) => {
-      const option = document.createElement("option");
-      option.value = cat;
-      const emoji = localStorage.getItem(`emoji-${cat}`) || categoryEmojis[cat] || "📌";
-      const label = knownKeys[cat] ? chrome.i18n.getMessage(knownKeys[cat]) : cat;
-      option.textContent = `${emoji} ${label}`;
-      if (cat === lead.category) option.selected = true;
-      categorySelect.appendChild(option);
-    });
+        const categorySelect = document.createElement("select");
+        categorySelect.className = "category-editor hidden-editor"; // Add a class to hide it by default
+        categorySelect.dataset.url = lead.url;
 
-    categorySelect.addEventListener("change", async (e) => {
-      const newCategory = e.target.value;
-      const tabUrl = e.target.dataset.url;
-      const allLeads = await getLeads();
-      const updatedLeads = allLeads.map((l) =>
-        l.url === tabUrl ? { ...l, category: newCategory } : l
-      );
-      await saveLeads(updatedLeads);
-      renderLeads(updatedLeads, container, mode);
-    });
+        const allCategories = Object.keys(categoryEmojis);
+        allCategories.forEach((cat) => {
+          const option = document.createElement("option");
+          option.value = cat;
+          const optionEmoji =
+            localStorage.getItem(`emoji-${cat}`) || categoryEmojis[cat] || "📌";
+          const optionLabel = knownKeys[cat]
+            ? chrome.i18n.getMessage(knownKeys[cat])
+            : cat;
+          option.textContent = `${optionEmoji} ${optionLabel}`;
+          if (cat === lead.category) option.selected = true;
+          categorySelect.appendChild(option);
+        }); // Append the hidden select element's HTML to the display
+        categoryDisplay += categorySelect.outerHTML;
+      }
+      const li = document.createElement("li");
+      li.className = "tab-entry";
+      li.dataset.category = lead.category;
 
-    categoryDisplay = categorySelect.outerHTML;
-  }
-
- const li = document.createElement("li");
-li.className = "tab-entry";
-li.dataset.category = lead.category;
-
-li.innerHTML = `
-  <a target="_blank" href="${lead.url}">${label}</a>
-  <span class="timestamp">${lead.timestamp}</span>
-  ${categoryDisplay}
-  <div class="tab-actions">
-    <button class="favorite-toggle" data-url="${lead.url}" title="${
-      lead.isFavorite
-        ? chrome.i18n.getMessage("tooltip_unfavorite")
-        : chrome.i18n.getMessage("tooltip_favorite")
-    }">${lead.isFavorite ? "⭐" : "☆"}</button>
-    <button class="delete-btn" data-url="${lead.url}" title="${chrome.i18n.getMessage("tooltip_delete")}">🗑️</button>
-  </div>
+      li.innerHTML = `
+<a target="_blank" href="${lead.url}">${urlLabel}</a>
+<span class="timestamp">${lead.timestamp}</span>
+${categoryDisplay}
+<div class="tab-actions">
+${editButton} <button class="favorite-toggle" data-url="${lead.url}" title="${
+        lead.isFavorite
+          ? chrome.i18n.getMessage("tooltip_unfavorite")
+          : chrome.i18n.getMessage("tooltip_favorite")
+      }">${lead.isFavorite ? "⭐" : "☆"}</button>
+<button class="delete-btn" data-url="${
+        lead.url
+      }" title="${chrome.i18n.getMessage("tooltip_delete")}">🗑️</button>
+</div>
 `;
 
-const deleteBtn = li.querySelector(".delete-btn");
-deleteBtn.addEventListener("click", async () => {
-  const confirmed = confirm(chrome.i18n.getMessage("confirm_delete_tab"));
-  if (!confirmed) return;
-  const allLeads = await getLeads();
-  const updatedLeads = allLeads.filter((l) => l.url !== lead.url);
-  await saveLeads(updatedLeads);
-  renderLeads(updatedLeads, container, mode);
-});
-
-const favoriteBtn = li.querySelector(".favorite-toggle");
-favoriteBtn.addEventListener("click", async () => {
-  const updatedLeads = leads.map((l) =>
-    l.url === lead.url ? { ...l, isFavorite: !l.isFavorite } : l
-  );
-  await saveLeads(updatedLeads);
-  renderLeads(updatedLeads, container, mode);
-  favoriteBtn.classList.add("favorited");
-  setTimeout(() => favoriteBtn.classList.remove("favorited"), 300);
-});
-
-ul.appendChild(li);
+      ul.appendChild(li);
     });
   }
 }
