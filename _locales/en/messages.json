@@ -90,5 +90,8 @@
   },
   "confirm_delete_category": {
     "message": "🗑️ Are you sure you want to delete the category \"$1\"?"
+  },
+  "tooltip_edit_category": {
+    "message": "Change the category for this tab"
   }
 }

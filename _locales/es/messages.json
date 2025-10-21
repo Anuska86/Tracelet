@@ -94,5 +94,8 @@
   },
   "confirm_delete_category": {
     "message": "🗑️ ¿Seguro que quieres eliminar la categoría \"$1\"?"
+  },
+  "tooltip_edit_category": {
+    "message": "Cambia la categoría para esta pestaña"
   }
 }
