@@ -93,5 +93,9 @@
   },
   "tooltip_edit_category": {
     "message": "Change the category for this tab"
+  },
+  "confirm_change_category": {
+    "message": "Are you sure you want to change the category for \"$1\" to \"$2\"?",
+    "description": "Confirmation message when a user tries to change the category of a saved tab. $1 is the tab title/URL, $2 is the new category name."
   }
 }

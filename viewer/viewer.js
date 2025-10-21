@@ -117,8 +117,27 @@ container.addEventListener("change", async (e) => {
   if (e.target.classList.contains("category-editor")) {
     const newCategory = e.target.value;
     const tabUrl = e.target.dataset.url;
+    const li = e.target.closest(".tab-entry");
+    const urlLabel = li.querySelector("a")?.textContent.trim() || tabUrl;
 
-    const currentLeads = await getLeads(); // <--- FIXED: Use 'currentLeads'
+    // --- NEW CONFIRMATION LOGIC ---
+    const confirmed = confirm(
+      chrome.i18n.getMessage("confirm_change_category", [
+        urlLabel,
+        newCategory,
+      ]) ||
+        `Are you sure you want to change the category for "${urlLabel}" to "${newCategory}"?`
+    );
+
+    if (!confirmed) {
+      // User clicked Cancel. Revert the UI state by forcing a blur event
+      // and exiting the function early.
+      e.target.blur();
+      return;
+    }
+    // --- END NEW CONFIRMATION LOGIC ---
+
+    const currentLeads = await getLeads();
     const updatedLeads = currentLeads.map((l) =>
       l.url === tabUrl ? { ...l, category: newCategory } : l
     );
@@ -126,7 +145,7 @@ container.addEventListener("change", async (e) => {
     await saveLeads(updatedLeads);
 
     // Re-render the list by triggering the search logic (which includes filter/query logic)
-    allLeads = updatedLeads; // <--- This assignment is now safe
+    allLeads = updatedLeads;
     searchInput.dispatchEvent(new Event("input"));
 
     // Blur the editor after saving to automatically hide it (handled by focusout)

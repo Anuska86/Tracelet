@@ -81,7 +81,7 @@
     "message": "Aún no hay pestañas favoritas. ¡Elige una para que aparezca aquí!"
   },
   "confirm_delete_tab": {
-    "message": "🗑️ ¿Estás segura de que quieres borrar esta pestaña?"
+    "message": "🗑️ ¿Seguro de que quieres borrar esta pestaña?"
   },
   "tooltip_favorite": {
     "message": "Haz clic para añadir a favoritos"
@@ -97,5 +97,9 @@
   },
   "tooltip_edit_category": {
     "message": "Cambia la categoría para esta pestaña"
+  },
+  "confirm_change_category": {
+    "message": "¿Seguro que quieres cambiar la categoría para \"$1\" a \"$2\"?",
+    "description": "Mensaje de confirmación cuando un usuario intenta cambiar la categoría de una pestaña guardada. $1 es el título/URL de la pestaña, $2 es el nuevo nombre de la categoría."
   }
 }
